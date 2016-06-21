@@ -46,3 +46,11 @@ scalaパッケージ modules以下に各モジュール名のサブパッケー�
 ```
 scala> sql"select 1".map(_.int(1)).single.apply
 ```
+
+## Atomの linter-scalacを使う場合
+
+下記コマンドの出力を jee/.classpath として保存する
+
+```
+sbt 'export fullClasspath'
+```
