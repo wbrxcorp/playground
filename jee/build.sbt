@@ -12,7 +12,6 @@ libraryDependencies += "org.scalikejdbc" % "scalikejdbc_2.11" % "2.4.2" // http:
 libraryDependencies += "commons-io" % "commons-io" % "2.5" // http://mvnrepository.com/artifact/commons-io/commons-io
 libraryDependencies += "mysql" % "mysql-connector-java" % "6.0.3" // http://mvnrepository.com/artifact/mysql/mysql-connector-java
 libraryDependencies += "joda-time" % "joda-time" % "2.9.4"  // http://mvnrepository.com/artifact/joda-time/joda-time
-libraryDependencies += "org.scalatra" % "scalatra_2.11" % "2.4.1" // http://mvnrepository.com/artifact/org.scalatra/scalatra_2.11
 
 libraryDependencies += "ch.qos.logback" % "logback-classic" % "1.1.7" // http://mvnrepository.com/artifact/ch.qos.logback/logback-classic
 libraryDependencies += "com.typesafe.scala-logging" % "scala-logging-slf4j_2.11" % "2.1.2" // http://mvnrepository.com/artifact/com.typesafe.scala-logging/scala-logging-slf4j_2.11
@@ -22,6 +21,14 @@ libraryDependencies += "org.jsoup" % "jsoup" % "1.9.2"  // http://mvnrepository.
 libraryDependencies += "com.mashape.unirest" % "unirest-java" % "1.4.9" // http://mvnrepository.com/artifact/com.mashape.unirest/unirest-java
 libraryDependencies += "com.opencsv" % "opencsv" % "3.8" // http://mvnrepository.com/artifact/com.opencsv/opencsv
 
+
+libraryDependencies ++= Seq(
+  "scalatra_2.11", "scalatra-json_2.11"
+).map("org.scalatra" % _ % "2.4.1") // http://mvnrepository.com/artifact/org.scalatra/scalatra_2.11
+
+libraryDependencies ++= Seq(
+  "json4s-jackson_2.11", "json4s-ext_2.11"
+).map("org.json4s" % _ % "3.4.0") // http://mvnrepository.com/artifact/org.json4s/json4s-jackson_2.11
 
 libraryDependencies ++= Seq(
   "poi", "poi-ooxml"

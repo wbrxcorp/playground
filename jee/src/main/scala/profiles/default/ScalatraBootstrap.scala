@@ -1,3 +1,7 @@
+package profiles.default
+
+// context init parameter "org.scalatra.LifeCycle" decides which bootstrap class to use
+
 class ScalatraBootstrap extends org.scalatra.LifeCycle {
   val projectName = buildinfo.BuildInfo.name
 
@@ -27,7 +31,6 @@ class ScalatraBootstrap extends org.scalatra.LifeCycle {
 
   override def init(context: javax.servlet.ServletContext) {
     initDatabase
-    //context.mount(classOf[some.Class], "/some/path/*")
     //context.initParameters(org.scalatra.EnvironmentKey) = "production"
   }
 }

@@ -7,6 +7,9 @@ object Module extends modules.Module {
     val flyway = new org.flywaydb.core.Flyway()
     flyway.setValidateOnMigrate(false)
     flyway.setDataSource(dataSourceDefinition.url, dataSourceDefinition.user, dataSourceDefinition.password)
+
+    val migrationDefinition = factory.getObjectByName("MigrationDefinition").asInstanceOf[modules.flyway.MigrationDefinition]
+    flyway.setLocations(migrationDefinition.getLocations)
     flyway.migrate()
 
     scalikejdbc.GlobalSettings.loggingSQLAndTime = scalikejdbc.LoggingSQLAndTimeSettings(

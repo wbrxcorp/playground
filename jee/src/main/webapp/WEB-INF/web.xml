@@ -7,6 +7,19 @@
     </listener>
 
     <servlet>
+      <servlet-name>FakePHP</servlet-name>
+      <servlet-class>modules.fakephp.FakePHPServlet</servlet-class>
+      <init-param>
+          <param-name>sessionVariableName</param-name>
+          <param-value>userId</param-value>
+      </init-param>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>FakePHP</servlet-name>
+        <url-pattern>*.php</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
         <servlet-name>H2Console</servlet-name>
         <servlet-class>org.h2.server.web.WebServlet</servlet-class>
         <init-param>
@@ -20,4 +33,8 @@
         <url-pattern>/h2/*</url-pattern>
     </servlet-mapping>
 
+    <welcome-file-list>
+      <welcome-file>index.html</welcome-file>
+      <welcome-file>index.php</welcome-file>
+    </welcome-file-list>
   </web-app>

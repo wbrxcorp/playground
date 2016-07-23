@@ -19,6 +19,9 @@ object Module extends modules.Module {
     root.setContextPath("/")
     root.setClassLoader(new java.net.URLClassLoader(new Array[java.net.URL](0), this.getClass().getClassLoader()))
     root.setInitParameter("org.eclipse.jetty.servlet.Default.useFileMappedBuffer", "false")
+    // set scalatrabootstrap
+    root.setInitParameter("org.scalatra.LifeCycle", factory.getClassByName("ScalatraBootstrap").getName)
+
     _server = new org.eclipse.jetty.server.Server(port)
     _server.setHandler(root)
     _server.start
