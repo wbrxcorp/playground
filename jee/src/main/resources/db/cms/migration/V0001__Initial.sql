@@ -23,7 +23,7 @@ create table entries (
     data text,
     format varchar(16) not null default 'markdown',
     visible boolean not null default false,
-    published_at timestamp,
+    published_at datetime,
     created_at timestamp not null default current_timestamp,
     updated_at timestamp not null default current_timestamp,
     unique(prefix,name),
