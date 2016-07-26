@@ -23,6 +23,7 @@ libraryDependencies += "com.opencsv" % "opencsv" % "3.8" // http://mvnrepository
 
 libraryDependencies += "org.apache.velocity" % "velocity" % "1.7"  //http://mvnrepository.com/artifact/org.apache.velocity/velocity
 libraryDependencies += "org.pegdown" % "pegdown" % "1.6.0" // http://mvnrepository.com/artifact/org.pegdown/pegdown
+libraryDependencies += "org.eclipse.jgit" % "org.eclipse.jgit" % "4.4.1.201607150455-r" // http://mvnrepository.com/artifact/org.eclipse.jgit/org.eclipse.jgit
 
 libraryDependencies ++= Seq(
   "scalatra_2.11", "scalatra-json_2.11"
@@ -54,4 +55,4 @@ assemblyMergeStrategy in assembly := {
 }
 
 buildInfoKeys := Seq[BuildInfoKey](name, version, scalaVersion, sbtVersion) //buildInfoPackage := "buildinfo"
-initialCommands in console := Seq("cms","common","config","fakephp","file","flyway","hash","image","javascript","jsonorg","mysql","opencsv","pegdown","poi","reflect","serialization","unirest","webapp").map("import modules.%s._".format(_)).mkString(";") + ";import scalikejdbc._;implicit val dbsession = AutoSession"
+initialCommands in console := Seq("cms","common","config","fakephp","file","flyway","hash","image","javascript","jgit","jsonorg","mysql","opencsv","pegdown","poi","reflect","serialization","unirest","webapp").map("import modules.%s._".format(_)).mkString(";") + ";import scalikejdbc._;implicit val dbsession = AutoSession"
