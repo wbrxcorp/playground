@@ -103,7 +103,7 @@ class HighlightServlet extends org.scalatra.ScalatraServlet with modules.scalatr
     }
   }
 
-  post("/search") {
+  get("/search") {
     redirect("https://www.google.co.jp/search?q=site%3Awww.walbrix.com%2Fplayground%2F+" + java.net.URLEncoder.encode(params("q"), "UTF-8"))
   }
 
