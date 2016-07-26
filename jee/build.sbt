@@ -3,9 +3,8 @@ enablePlugins(JettyPlugin)
 
 name := "playground"
 scalaVersion := "2.11.8"
-version := "0.20160725"
+version := "0.20160726"
 
-libraryDependencies += "org.scala-lang" % "scala-compiler" % "2.11.8" // http://mvnrepository.com/artifact/org.scala-lang/scala-compiler
 libraryDependencies += "org.apache.httpcomponents" % "httpclient" % "4.5.2" // http://mvnrepository.com/artifact/org.apache.httpcomponents/httpclient
 libraryDependencies += "org.flywaydb" % "flyway-core" % "4.0.3" // http://mvnrepository.com/artifact/org.flywaydb/flyway-core
 libraryDependencies += "com.h2database" % "h2" % "1.4.192" // http://mvnrepository.com/artifact/com.h2database/h2
@@ -22,6 +21,8 @@ libraryDependencies += "org.jsoup" % "jsoup" % "1.9.2"  // http://mvnrepository.
 libraryDependencies += "com.mashape.unirest" % "unirest-java" % "1.4.9" // http://mvnrepository.com/artifact/com.mashape.unirest/unirest-java
 libraryDependencies += "com.opencsv" % "opencsv" % "3.8" // http://mvnrepository.com/artifact/com.opencsv/opencsv
 libraryDependencies += "org.scala-sbt" % "command" % "0.13.11"
+
+libraryDependencies += "org.apache.velocity" % "velocity" % "1.7"  //http://mvnrepository.com/artifact/org.apache.velocity/velocity
 
 libraryDependencies ++= Seq(
   "scalatra_2.11", "scalatra-json_2.11"
@@ -52,6 +53,5 @@ assemblyMergeStrategy in assembly := {
     oldStrategy(x)
 }
 
-
 buildInfoKeys := Seq[BuildInfoKey](name, version, scalaVersion, sbtVersion) //buildInfoPackage := "buildinfo"
-initialCommands in console := Seq("cms","common","config","fakephp","file","flyway","hash","jsonorg","mysql","opencsv","poi","reflect","serialization","unirest","webapp").map("import modules.%s._".format(_)).mkString(";") + ";import scalikejdbc._;implicit val dbsession = AutoSession"
+initialCommands in console := Seq("cms","common","config","fakephp","file","flyway","hash","image","javascript","jsonorg","mysql","opencsv","poi","reflect","serialization","unirest","webapp").map("import modules.%s._".format(_)).mkString(";") + ";import scalikejdbc._;implicit val dbsession = AutoSession"

@@ -9,19 +9,25 @@
     <servlet>
       <servlet-name>FakePHP</servlet-name>
       <servlet-class>modules.fakephp.FakePHPServlet</servlet-class>
-      <init-param>
-          <param-name>sessionVariableName</param-name>
-          <param-value>userId</param-value>
-      </init-param>
     </servlet>
     <servlet-mapping>
         <servlet-name>FakePHP</servlet-name>
         <url-pattern>*.php</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+      <servlet-name>FakeSSI</servlet-name>
+      <servlet-class>modules.fakessi.FakeSSIServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>FakeSSI</servlet-name>
+        <url-pattern>*.shtml</url-pattern>
+    </servlet-mapping>
+
     <welcome-file-list>
       <welcome-file>index.htm</welcome-file>
-      <welcome-file>index.html</welcome-file>
       <welcome-file>index.php</welcome-file>
+      <welcome-file>index.shtml</welcome-file>
+      <welcome-file>index.html</welcome-file>
     </welcome-file-list>
   </web-app>

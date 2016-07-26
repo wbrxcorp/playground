@@ -11,11 +11,6 @@ class ScalatraBootstrap extends org.scalatra.LifeCycle {
       logLevel = config.scalikeJDBCLogLevel
     )
 
-    val flyway = new org.flywaydb.core.Flyway()
-    flyway.setDataSource(config.defaultDatabaseURL, config.defaultDatabaseUser, config.defaultDatabasePassword)
-    config.defaultDatabaseMigrationLocations.foreach(flyway.setLocations(_))
-    flyway.migrate()
-
     scalikejdbc.ConnectionPool.singleton(config.defaultDatabaseURL, config.defaultDatabaseUser, config.defaultDatabasePassword)
   }
 }

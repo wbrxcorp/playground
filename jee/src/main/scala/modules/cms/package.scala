@@ -1,13 +1,12 @@
 package modules
 
-import scalikejdbc.NamedDB
+import _root_.scalikejdbc.NamedDB
 
-
-package object cms extends scalikejdbc.SQLInterpolation with modules.common.Using {
+package object cms extends _root_.scalikejdbc.SQLInterpolation with modules.common.Using {
 
   def convert(srcPath:String="./cms", dstHost:String = "localhost", dstDatabase:String = "cms", dstUser:String = "cms", dstPassword:String = "", dstTimezone:String = "Asia/Tokyo"):Unit = {
     val srcURL = "jdbc:h2:%s;MVCC=true;;AUTO_SERVER=true;DB_CLOSE_DELAY=-1".format(srcPath)
-    scalikejdbc.ConnectionPool.add("src", srcURL, "sa", "")
+    _root_.scalikejdbc.ConnectionPool.add("src", srcURL, "sa", "")
 
 
     val dstURL = "jdbc:mysql://%s/%s?useUnicode=true&characterEncoding=UTF8&zeroDateTimeBehavior=convertToNull&useCompression=true&autoReconnect=true&socketTimeout=10000&useLegacyDatetimeCode=false&serverTimezone=%s".format(dstHost, dstDatabase, dstTimezone)
@@ -18,7 +17,7 @@ package object cms extends scalikejdbc.SQLInterpolation with modules.common.Usin
     flyway.setLocations("db/cms/migration")
     flyway.migrate()
 
-    scalikejdbc.ConnectionPool.add("dst", dstURL, dstUser, dstPassword)
+    _root_.scalikejdbc.ConnectionPool.add("dst", dstURL, dstUser, dstPassword)
 
     val sqlUpdates = NamedDB("src") readOnly { implicit srcSession =>
       sql"select * from users".map { row =>

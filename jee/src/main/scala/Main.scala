@@ -1,6 +1,7 @@
 import sun.misc.Signal
 
 object Main extends App {
+  // 第1引数をプロファイル名として使用、省略時は "standalone" (modules.config.DefaultStandaloneConfig 又は profiles.standalone.Config)
   modules.config.loadConfig(args.toSeq.headOption.getOrElse("standalone"))
   val config = modules.config.get
   val port = config.webAppPort
@@ -10,5 +11,4 @@ object Main extends App {
   scala.util.Try(Signal.handle(new Signal("INT"), new sun.misc.SignalHandler {
     def handle(sig:Signal):Unit = server.stop
   }))
-
 }

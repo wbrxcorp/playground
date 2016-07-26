@@ -1,6 +1,10 @@
 package modules.cms
 
+import scalikejdbc.NamedDB
+import org.scalatra.{UnsupportedMediaType,BadRequest,Ok}
 import modules.scalatra.{Success,Failure}
+
+case class User(id:Int,name:String)
 
 class Api extends modules.scalatra.JsonSupport with modules.scalatra.LogErrors {
   get("/") {
@@ -9,8 +13,10 @@ class Api extends modules.scalatra.JsonSupport with modules.scalatra.LogErrors {
     )
   }
 
+  def getCurrentUserId:Option[Int] = enrichSession(session).getAs[Int]("userId")
+
   get("/login") {
-    enrichSession(session).getAs[Int]("userId") match {
+    getCurrentUserId match {
       case Some(userId) => Success(Map("userId"->userId, "username"->"shimarin"))
       case None => Failure
     }
@@ -23,11 +29,38 @@ class Api extends modules.scalatra.JsonSupport with modules.scalatra.LogErrors {
   }
 
   post("/logout") {
-    enrichSession(session).getAs[Int]("userId") match {
+    getCurrentUserId match {
       case Some(userId) =>
         session.removeAttribute("userId")
         Success(userId)
       case None => Failure
+    }
+  }
+
+  def withUser[T](f:User=>T):T = {
+    val userId = getCurrentUserId.getOrElse(halt(403, "You must be authenticated"))
+    val user = NamedDB("cms") readOnly { implicit session =>
+      val name = sql"select name from users where id=${userId}".map(_.string(1)).single.apply.getOrElse(halt(403, "User does not exist (deleted?)"))
+      User(userId, name)
+    }
+    f(user)
+  }
+
+  post("/image/:sizespec?") {
+    import modules.image._
+    withUser { user =>
+      val requestContentType = request.getContentType
+      if (!requestContentType.startsWith("image/")) {
+        halt(UnsupportedMediaType("image/* only"))
+      }
+
+      try {
+        val (image, filetype) = resizeImage(request.getInputStream, params.get("sizespec"))
+        Ok(imageToDataURI("image/%s".format(filetype), image), Map("Content-Type" -> ("text/plain")))
+      }
+      catch {
+        case e:IllegalArgumentException => BadRequest("Invalid image file")
+      }
     }
   }
 }

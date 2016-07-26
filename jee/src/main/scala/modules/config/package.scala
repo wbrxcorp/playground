@@ -1,13 +1,15 @@
 package modules
 
-package object config {
-  var currentConfig:Config = DefaultConfig
+package object config extends com.typesafe.scalalogging.slf4j.LazyLogging {
+  val defaultConfigs = Map("default"->DefaultDefaultConfig, "standalone"->DefaultStandaloneConfig)
+  var currentConfig:Config = DefaultDefaultConfig // loadConfigを一度も呼び出さないと DefaultDefaultConfigが使用される
 
   def loadConfig(profile:String="default"):Unit = {
     this.synchronized {
       currentConfig =
         modules.reflect.getObjectByFullName("profiles.%s.Config".format(profile)).map(_.asInstanceOf[Config])
-          .getOrElse(DefaultConfig)
+          .getOrElse(defaultConfigs(profile))
+      logger.info("currentConfig: %s".format(currentConfig.toString))
     }
   }
 
