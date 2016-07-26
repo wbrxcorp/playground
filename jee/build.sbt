@@ -24,6 +24,7 @@ libraryDependencies += "com.opencsv" % "opencsv" % "3.8" // http://mvnrepository
 libraryDependencies += "org.apache.velocity" % "velocity" % "1.7"  //http://mvnrepository.com/artifact/org.apache.velocity/velocity
 libraryDependencies += "org.pegdown" % "pegdown" % "1.6.0" // http://mvnrepository.com/artifact/org.pegdown/pegdown
 libraryDependencies += "org.eclipse.jgit" % "org.eclipse.jgit" % "4.4.1.201607150455-r" // http://mvnrepository.com/artifact/org.eclipse.jgit/org.eclipse.jgit
+libraryDependencies += "org.jsoup" % "jsoup" % "1.9.2" // http://mvnrepository.com/artifact/org.jsoup/jsoup
 
 libraryDependencies ++= Seq(
   "scalatra_2.11", "scalatra-json_2.11"

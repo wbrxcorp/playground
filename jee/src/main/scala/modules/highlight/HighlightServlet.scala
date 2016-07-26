@@ -8,7 +8,7 @@ class Entry(file:File) {
   def isDir = file.isDirectory
 }
 
-class HighlightServlet extends org.scalatra.ScalatraServlet with modules.scalatra.LogErrors with modules.common.Using {
+class HighlightServlet extends modules.scalatra.JsonSupport with modules.scalatra.LogErrors with modules.common.Using {
   import modules.velocity._
   import modules.file._
   import modules.pegdown._
@@ -108,7 +108,8 @@ class HighlightServlet extends org.scalatra.ScalatraServlet with modules.scalatr
   }
 
   get("/wikipedia/:pagename") {
-    "WIKIPEDIA"
+    val ipAddress = request.getRemoteAddr
+    modules.wikipedia.getWikipediaEntry(params("pagename"), ipAddress)
   }
 
 }
