@@ -157,18 +157,15 @@
   ## 説明文（ソースファイルと同じ階層に同名で置いてある .mdファイルをHTMLに変換したもの）
   <p class="lead">$description</p>
 
-  $servletPath
-
 #*
   <c:if test="${not empty example}">
   <h3>動作例</h3>
   <a href="<%=request.getContextPath()%><c:out value="${example}"/>"><img src="<%=request.getContextPath()%>/api/pagecapture?url=<c:out value="${example}"/>" class="img-thumbnail" image-spinner width="200" height="200" alt="動作例"></a>
   </c:if>
-
-  <c:if test="${not empty content}">
-  ${content}
-  </c:if>
 *#
+
+  ${content}
+
   <div class="panel panel-default">
     <div class="panel-heading">
       <h3 class="panel-title"><span class="glyphicon glyphicon-pencil"></span> これを書いている人</h3>
