@@ -1,8 +1,9 @@
-scalaVersion := "2.11.8"
-name := "playground"
-version := "0.20160723"
-
+enablePlugins(BuildInfoPlugin)
 enablePlugins(JettyPlugin)
+
+name := "playground"
+scalaVersion := "2.11.8"
+version := "0.20160725"
 
 libraryDependencies += "org.scala-lang" % "scala-compiler" % "2.11.8" // http://mvnrepository.com/artifact/org.scala-lang/scala-compiler
 libraryDependencies += "org.apache.httpcomponents" % "httpclient" % "4.5.2" // http://mvnrepository.com/artifact/org.apache.httpcomponents/httpclient
@@ -20,7 +21,7 @@ libraryDependencies += "org.slf4j" % "jcl-over-slf4j" % "1.7.21"  // http://mvnr
 libraryDependencies += "org.jsoup" % "jsoup" % "1.9.2"  // http://mvnrepository.com/artifact/org.jsoup/jsoup
 libraryDependencies += "com.mashape.unirest" % "unirest-java" % "1.4.9" // http://mvnrepository.com/artifact/com.mashape.unirest/unirest-java
 libraryDependencies += "com.opencsv" % "opencsv" % "3.8" // http://mvnrepository.com/artifact/com.opencsv/opencsv
-
+libraryDependencies += "org.scala-sbt" % "command" % "0.13.11"
 
 libraryDependencies ++= Seq(
   "scalatra_2.11", "scalatra-json_2.11"
@@ -36,7 +37,7 @@ libraryDependencies ++= Seq(
 
 libraryDependencies ++= Seq(
   "jetty-webapp","jetty-plus"
-).map("org.eclipse.jetty" % _ % "9.2.17.v20160517") // http://mvnrepository.com/artifact/org.eclipse.jetty/jetty-webapp
+).map("org.eclipse.jetty" % _ % "9.3.10.v20160621") // http://mvnrepository.com/artifact/org.eclipse.jetty/jetty-webapp
 
 assemblyMergeStrategy in assembly := {
   case PathList("javax", "servlet", xs @ _*)         => MergeStrategy.first
@@ -51,9 +52,6 @@ assemblyMergeStrategy in assembly := {
     oldStrategy(x)
 }
 
-lazy val root = (project in file(".")).
-  enablePlugins(BuildInfoPlugin).
-  settings(
-    buildInfoKeys := Seq[BuildInfoKey](name, version, scalaVersion, sbtVersion) //,
-    //buildInfoPackage := "buildinfo"
-  )
+
+buildInfoKeys := Seq[BuildInfoKey](name, version, scalaVersion, sbtVersion) //buildInfoPackage := "buildinfo"
+initialCommands in console := Seq("cms","common","config","fakephp","file","flyway","hash","jsonorg","mysql","opencsv","poi","reflect","serialization","unirest","webapp").map("import modules.%s._".format(_)).mkString(";") + ";import scalikejdbc._;implicit val dbsession = AutoSession"

@@ -1,13 +1,11 @@
-package modules.poi
+package modules
 
 import scala.collection.JavaConverters._
 
 import org.apache.poi.ss.usermodel.WorkbookFactory._
 import org.apache.poi.ss.usermodel.{Workbook,Sheet,Row,Cell}
 
-object Module extends modules.Module {
-  //override def init(factory:profiles.Factory,repl:scala.tools.nsc.interpreter.ILoop):Unit = {}
-
+package object poi {
   def loadExcel(filename:String):Workbook = create(new java.io.File(filename))
   def loadExcel(in:java.io.InputStream):Workbook = create(in)
   def loadExcel(file:java.io.File):Workbook = create(file)

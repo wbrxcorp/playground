@@ -1,13 +1,9 @@
-package modules.cms
+package modules
 
 import scalikejdbc.NamedDB
 
 
-object Module extends modules.Module with modules.Using with scalikejdbc.SQLInterpolation {
-
-  override def dependsOn:Seq[String] = Seq("database")
-
-  //override def init(factory:profiles.Factory,repl:scala.tools.nsc.interpreter.ILoop):Unit
+package object cms extends scalikejdbc.SQLInterpolation with modules.common.Using {
 
   def convert(srcPath:String="./cms", dstHost:String = "localhost", dstDatabase:String = "cms", dstUser:String = "cms", dstPassword:String = "", dstTimezone:String = "Asia/Tokyo"):Unit = {
     val srcURL = "jdbc:h2:%s;MVCC=true;;AUTO_SERVER=true;DB_CLOSE_DELAY=-1".format(srcPath)

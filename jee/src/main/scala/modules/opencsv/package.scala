@@ -1,10 +1,8 @@
-package modules.opencsv
+package modules
 
 import com.opencsv.{CSVWriter, CSVReader}
 
-object Module extends modules.Module with modules.Using {
-  //override def init(factory:profiles.Factory,repl:scala.tools.nsc.interpreter.ILoop):Unit = {}
-
+package object opencsv extends modules.common.Using {
   def withCSVWriter[T](out:java.io.OutputStream, charset:String="UTF-8")(f:CSVWriter=>T):T = {
     using (new java.io.OutputStreamWriter(out, charset)) { osw =>
       using (new CSVWriter(osw)) { writer =>
