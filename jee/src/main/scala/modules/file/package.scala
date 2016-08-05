@@ -14,6 +14,8 @@ package object file {
       }) + patternTrailingSlashes.replaceAllIn(y, "")
     }
   }
+  def joinPath(p1:String,p2:String):String = joinPath(Seq(p1, p2))
+  def joinPath(p1:String,p2:String,p3:String):String = joinPath(Seq(p1, p2,p3))
   def mapEachLine[T](path:String)(f:String=>T):Seq[T] = {
     // TBD
     Seq()

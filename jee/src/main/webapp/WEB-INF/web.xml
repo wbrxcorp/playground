@@ -33,6 +33,16 @@
         <url-pattern>*.md</url-pattern>
     </servlet-mapping>
 
+    <filter>
+      <filter-name>Compress</filter-name>
+      <filter-class>modules.yuicompressor.CompressFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>Compress</filter-name>
+        <url-pattern>*.min.js</url-pattern>
+        <url-pattern>*.min.css</url-pattern>
+    </filter-mapping>
+
     <welcome-file-list>
       <welcome-file>index.md</welcome-file>
       <welcome-file>index.php</welcome-file>
