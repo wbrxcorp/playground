@@ -27,7 +27,7 @@ package object wikipedia extends SQLInterpolation with modules.common.Using with
       logger.debug("Fetching: %s".format(url))
       using(httpClient.execute(new org.apache.http.client.methods.HttpGet(url))) { response =>
         // HTTPステータスコードが200であることを確認（そうでない場合例外を送出する）
-        ensureOK(response)
+        //ensureOK(response)
         using(response.getEntity.getContent) { is =>
           val soup = org.jsoup.Jsoup.parse(is, "UTF-8", url)
           WikipediaEntry(
