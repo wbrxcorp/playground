@@ -16,21 +16,6 @@ class HighlightServlet extends modules.scalatra.JsonSupport with modules.scalatr
   val highlightRoot = modules.config.get.highlightRoot
   val defaultCharset = "UTF-8"
 
-  val markdownMetadataRegex ="""^(.+:.+\n)+\n""".r
-
-  def extractMetadataFromMarkdown(md:String):(String,Map[String,String]) = {
-    markdownMetadataRegex.findFirstIn(md) match {
-      case Some(metadata) =>
-        val metamap = """(?m)^(.+:.+)$""".r.findAllIn(metadata).map { single =>
-          val splitted = single.split(":")
-          (splitted(0).trim, splitted(1).trim)
-        }.toMap
-        //logger.debug(metadataRegex.split(md).toSeq.toString)
-        ((markdownMetadataRegex.split(md) ++ Array("","")).apply(1), metamap)
-      case None => (md, Map())
-    }
-  }
-
   def processDirectory(path:String, dir:File):Unit = {
     val template = loadResource("/WEB-INF/templates/highlight_dir.vm")
     contentType = "text/html; charset=UTF-8"
