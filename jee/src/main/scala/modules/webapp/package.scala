@@ -17,4 +17,11 @@ package object webapp {
   }
 
   def startWebApp(port:Int, resource:String):Server = startWebApp(port, Array(resource))
+
+  def startServer:(Server, Int) = {
+    val config = modules.config.get
+    val port = config.webAppPort
+    (startWebApp(port, config.webAppDirs), port)
+  }
+
 }

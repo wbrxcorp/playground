@@ -52,5 +52,5 @@ scala> sql"select 1".map(_.int(1)).single.apply
 下記コマンドの出力を jee/.classpath として保存する
 
 ```
-sbt 'export fullClasspath'
+sbt 'export test:fullClasspath'
 ```

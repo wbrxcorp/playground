@@ -4,6 +4,7 @@ enablePlugins(JettyPlugin)
 name := "playground"
 scalaVersion := "2.11.8"
 version := "0.20160726"
+parallelExecution in Test := false
 
 libraryDependencies += "org.apache.httpcomponents" % "httpclient" % "4.5.2" // http://mvnrepository.com/artifact/org.apache.httpcomponents/httpclient
 libraryDependencies += "org.flywaydb" % "flyway-core" % "4.0.3" // http://mvnrepository.com/artifact/org.flywaydb/flyway-core
@@ -26,6 +27,8 @@ libraryDependencies += "org.pegdown" % "pegdown" % "1.6.0" // http://mvnreposito
 libraryDependencies += "org.eclipse.jgit" % "org.eclipse.jgit" % "4.4.1.201607150455-r" // http://mvnrepository.com/artifact/org.eclipse.jgit/org.eclipse.jgit
 libraryDependencies += "org.jsoup" % "jsoup" % "1.9.2" // http://mvnrepository.com/artifact/org.jsoup/jsoup
 libraryDependencies += "com.yahoo.platform.yui" % "yuicompressor" % "2.4.8" // http://mvnrepository.com/artifact/com.yahoo.platform.yui/yuicompressor
+libraryDependencies += "com.novocode" % "junit-interface" % "0.11" % Test // http://mvnrepository.com/artifact/com.novocode/junit-interface
+libraryDependencies += "org.scalatest" % "scalatest_2.11" % "2.2.6" % Test // http://mvnrepository.com/artifact/org.scalatest/scalatest_2.11
 
 libraryDependencies ++= Seq(
   "scalatra_2.11", "scalatra-json_2.11"
@@ -42,6 +45,12 @@ libraryDependencies ++= Seq(
 libraryDependencies ++= Seq(
   "jetty-webapp","jetty-plus"
 ).map("org.eclipse.jetty" % _ % "9.3.10.v20160621") // http://mvnrepository.com/artifact/org.eclipse.jetty/jetty-webapp
+
+libraryDependencies ++= Seq(
+  "selenium-support", // http://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-support
+  "selenium-chrome-driver"  // http://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-chrome-driver
+).map("org.seleniumhq.selenium" % _ % "2.53.1" % Test)
+
 
 assemblyMergeStrategy in assembly := {
   case PathList("javax", "servlet", xs @ _*)         => MergeStrategy.first
