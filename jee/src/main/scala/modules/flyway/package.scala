@@ -7,4 +7,14 @@ package object flyway {
     flyway.setDataSource(url, username, password)
     flyway.migrate()
   }
+
+  def migrateDefaultDatabase():Unit = {
+    val config = modules.config.get
+    config.defaultDatabaseMigrationLocations match {
+      case Some(defaultDatabaseMigrationLocations) =>
+        migrate(config.defaultDatabaseURL, config.defaultDatabaseUser, config.defaultDatabasePassword, defaultDatabaseMigrationLocations)
+      case None => migrate(config.defaultDatabaseURL, config.defaultDatabaseUser, config.defaultDatabasePassword)
+    }
+
+  }
 }

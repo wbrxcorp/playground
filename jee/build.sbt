@@ -57,4 +57,4 @@ assemblyMergeStrategy in assembly := {
 }
 
 buildInfoKeys := Seq[BuildInfoKey](name, version, scalaVersion, sbtVersion) //buildInfoPackage := "buildinfo"
-initialCommands in console := Seq("cms","common","config","fakephp","file","flyway","hash","image","javascript","jgit","jsonorg","mysql","opencsv","pegdown","poi","reflect","serialization","unirest","webapp").map("import modules.%s._".format(_)).mkString(";") + ";import scalikejdbc._;implicit val dbsession = AutoSession"
+initialCommands in console := Seq("cms","common","config","fakephp","file","flyway","hash","image","javascript","jgit","jsonorg","movabletype","mysql","opencsv","pegdown","poi","reflect","scalikejdbc","serialization","unirest","webapp").map("import modules.%s._".format(_)).mkString(";") + ";initDefaultDatabase;migrateDefaultDatabase;import scalikejdbc._;implicit val dbsession = AutoSession"
