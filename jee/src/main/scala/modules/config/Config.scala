@@ -5,7 +5,7 @@ trait Config {
 
   // Jetty設定
   def webAppPort:Int = 51234 + Integer.parseInt(modules.hash.sha1(projectName).substring(0,3), 16)// プロジェクト名のsha1sum文字列から3文字(4096種類)取ってポート番号にする
-  def webAppDirs:Array[String] = Array("src/main/webapp")
+  def webAppDirs:Array[String] = Array("src/main/webapp", "../htdocs")
 
   // Scalatra設定
   def additionalScalatraBootstrapClasses:Array[Class[_ <: org.scalatra.LifeCycle]] = Array(
