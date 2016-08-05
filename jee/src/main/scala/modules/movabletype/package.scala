@@ -16,7 +16,7 @@ package object movabletype extends _root_.scalikejdbc.SQLInterpolation {
       sql"select author_id,author_name,author_nickname,author_password from mt_author where author_name=${name}".map { row =>
         val (id, name, nickname, encryptedPassword) = (row.int(1),row.string(2),row.stringOpt(3),row.string(4))
         if (org.apache.commons.codec.digest.Crypt.crypt(password,encryptedPassword.substring(0,2)) == encryptedPassword) {
-          Some(Author(id=row.int(1),name=row.string(2),nickname=row.stringOpt(3)))
+          Some(Author(id, name, nickname))
         } else None
       }.single.apply.flatten.getOrElse(throw new SecurityException("Authentication Failed: %s".format(name)))
     }
