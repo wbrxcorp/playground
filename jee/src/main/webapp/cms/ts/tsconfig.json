@@ -14,6 +14,7 @@
         "noLib": false,
         "preserveConstEnums": true,
         "outFile": "../js/app.js",
+        "sourceMap":true,
         "suppressImplicitAnyIndexErrors": true
     },
     "exclude": [
