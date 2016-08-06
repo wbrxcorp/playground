@@ -27,8 +27,8 @@ libraryDependencies += "org.pegdown" % "pegdown" % "1.6.0" // http://mvnreposito
 libraryDependencies += "org.eclipse.jgit" % "org.eclipse.jgit" % "4.4.1.201607150455-r" // http://mvnrepository.com/artifact/org.eclipse.jgit/org.eclipse.jgit
 libraryDependencies += "org.jsoup" % "jsoup" % "1.9.2" // http://mvnrepository.com/artifact/org.jsoup/jsoup
 libraryDependencies += "com.yahoo.platform.yui" % "yuicompressor" % "2.4.8" // http://mvnrepository.com/artifact/com.yahoo.platform.yui/yuicompressor
-libraryDependencies += "com.novocode" % "junit-interface" % "0.11" % Test // http://mvnrepository.com/artifact/com.novocode/junit-interface
-libraryDependencies += "org.scalatest" % "scalatest_2.11" % "2.2.6" % Test // http://mvnrepository.com/artifact/org.scalatest/scalatest_2.11
+libraryDependencies += "io.apigee.trireme" % "trireme-core" % "0.8.9" // https://mvnrepository.com/artifact/io.apigee.trireme/trireme-core
+libraryDependencies += "io.apigee.trireme" % "trireme-node10src" % "0.8.9" // https://mvnrepository.com/artifact/io.apigee.trireme/trireme-node10
 
 libraryDependencies ++= Seq(
   "scalatra_2.11", "scalatra-json_2.11"
@@ -45,6 +45,14 @@ libraryDependencies ++= Seq(
 libraryDependencies ++= Seq(
   "jetty-webapp","jetty-plus"
 ).map("org.eclipse.jetty" % _ % "9.3.10.v20160621") // http://mvnrepository.com/artifact/org.eclipse.jetty/jetty-webapp
+
+libraryDependencies ++= Seq(
+  "trireme-core", // https://mvnrepository.com/artifact/io.apigee.trireme/trireme-core
+  "trireme-node10src" // https://mvnrepository.com/artifact/io.apigee.trireme/trireme-node10src
+).map("io.apigee.trireme" % _ % "0.8.9")
+
+libraryDependencies += "com.novocode" % "junit-interface" % "0.11" % Test // http://mvnrepository.com/artifact/com.novocode/junit-interface
+libraryDependencies += "org.scalatest" % "scalatest_2.11" % "2.2.6" % Test // http://mvnrepository.com/artifact/org.scalatest/scalatest_2.11
 
 libraryDependencies ++= Seq(
   "selenium-support", // http://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-support
@@ -66,4 +74,4 @@ assemblyMergeStrategy in assembly := {
 }
 
 buildInfoKeys := Seq[BuildInfoKey](name, version, scalaVersion, sbtVersion) //buildInfoPackage := "buildinfo"
-initialCommands in console := Seq("cms","common","config","fakephp","file","flyway","hash","image","javascript","jgit","jsonorg","movabletype","mysql","opencsv","pegdown","poi","reflect","scalikejdbc","serialization","unirest","webapp").map("import modules.%s._".format(_)).mkString(";") + ";initDefaultDatabase;migrateDefaultDatabase;import scalikejdbc._;implicit val dbsession = AutoSession"
+initialCommands in console := Seq("cms","common","config","fakephp","file","flyway","hash","image","javascript","jgit","jsonorg","movabletype","mysql","opencsv","pegdown","poi","reflect","scalikejdbc","serialization","trireme","unirest","webapp").map("import modules.%s._".format(_)).mkString(";") + ";initDefaultDatabase;migrateDefaultDatabase;import scalikejdbc._;implicit val dbsession = AutoSession"
