@@ -26,7 +26,7 @@ class CompressFilter extends javax.servlet.Filter with com.typesafe.scalalogging
         using(scala.io.Source.fromInputStream(in, charset)) { source =>
           (source.getLines.map(_.replaceFirst("""#.*$""","").trim).filter(_ != "").map { line =>
             val resourcePath = if (line.startsWith("/")) line else {
-              modules.file.joinPath(new java.io.File(lstFilePath).getParent, line)
+              modules.file.joinPath((lstFilePath.split('/').toSeq.dropRight(1) :+ "").mkString("/"), line)
             }
             Option(context.getResource(resourcePath)).getOrElse(throw new FileNotFoundException(resourcePath))
           }.toList, lastModified)
