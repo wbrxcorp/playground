@@ -25,7 +25,7 @@ class LoginStatusController {
     $resource("./api.php/login").get({}, (result) => {
       if (result.success) {
         this.status = true;
-        this.username = result.info.username;
+        this.username = result.info.name;
       }
     });
   }

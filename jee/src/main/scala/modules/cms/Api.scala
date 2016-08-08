@@ -17,7 +17,7 @@ class Api extends modules.scalatra.JsonSupport with modules.scalatra.LogErrors {
 
   get("/login") {
     getCurrentUserId match {
-      case Some(userId) => Success(Map("userId"->userId, "username"->"shimarin"))
+      case Some(userId) => Success(User(userId, "shimarin"))
       case None => Failure
     }
   }
