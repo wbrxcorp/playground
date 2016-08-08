@@ -11,5 +11,5 @@ trait ScalikeJdbcMigration extends org.flywaydb.core.api.migration.jdbc.JdbcMigr
     })
   }
 
-  def migrate(implicit session:DBSession)
+  def migrate(implicit session:DBSession):Unit
 }

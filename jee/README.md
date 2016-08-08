@@ -54,3 +54,10 @@ scala> sql"select 1".map(_.int(1)).single.apply
 ```
 sbt 'export test:fullClasspath'
 ```
+
+## ensimeを使う場合
+
+```
+sbt ensimeConfig
+```
+
