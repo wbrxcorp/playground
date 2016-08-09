@@ -2,7 +2,7 @@ package modules
 
 import org.eclipse.jetty.server.Server
 
-package object webapp {
+package object jetty {
   def startWebApp(port:Int, resources:Array[String]):Server = {
     val root = new org.eclipse.jetty.webapp.WebAppContext
     root.setBaseResource(new org.eclipse.jetty.util.resource.ResourceCollection(resources))
