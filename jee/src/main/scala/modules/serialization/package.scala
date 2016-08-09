@@ -1,6 +1,7 @@
 package modules
+import modules.common.using
 
-package object serialization extends modules.common.Using {
+package object serialization {
   def saveObject(obj:Serializable, filename:String):Unit = {
     using(new java.io.FileOutputStream(filename)) { fos =>
       using(new java.io.ObjectOutputStream(fos)) { oos =>

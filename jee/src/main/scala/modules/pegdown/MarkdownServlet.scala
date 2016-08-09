@@ -5,7 +5,9 @@ import javax.servlet.http.HttpServletResponse
 
 import org.apache.commons.io.IOUtils
 
-class MarkdownServlet extends javax.servlet.http.HttpServlet with com.typesafe.scalalogging.slf4j.LazyLogging with modules.common.Using {
+import modules.common.using
+
+class MarkdownServlet extends javax.servlet.http.HttpServlet with com.typesafe.scalalogging.slf4j.LazyLogging {
   def loadResource(servletContext:ServletContext,path:String):Option[String] = {
     Option(servletContext.getResource(path)).map { resource =>
       using (resource.openStream) { stream => IOUtils.toString(stream, "utf-8") }

@@ -1,8 +1,9 @@
 package modules
 
 import _root_.scalikejdbc.NamedDB
+import modules.common.using
 
-package object cms extends _root_.scalikejdbc.SQLInterpolation with modules.common.Using {
+package object cms extends _root_.scalikejdbc.SQLInterpolation {
 
   def convert(srcPath:String="./cms", dstHost:String = "localhost", dstDatabase:String = "cms", dstUser:String = "cms", dstPassword:String = "", dstTimezone:String = "Asia/Tokyo"):Unit = {
     val srcURL = "jdbc:h2:%s;MVCC=true;;AUTO_SERVER=true;DB_CLOSE_DELAY=-1".format(srcPath)

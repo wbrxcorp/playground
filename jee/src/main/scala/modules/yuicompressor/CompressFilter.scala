@@ -3,7 +3,9 @@ package modules.yuicompressor
 import java.io.FileNotFoundException
 import javax.servlet.http.HttpServletResponse
 
-class CompressFilter extends javax.servlet.Filter with com.typesafe.scalalogging.slf4j.LazyLogging with modules.common.Using {
+import modules.common.using
+
+class CompressFilter extends javax.servlet.Filter with com.typesafe.scalalogging.slf4j.LazyLogging {
   val charset:String = "UTF-8"
   private var context:javax.servlet.ServletContext = _
   private var compressorConfig:Config = Config()

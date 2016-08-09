@@ -1,8 +1,9 @@
 package modules
 
 import com.opencsv.{CSVWriter, CSVReader}
+import modules.common.using
 
-package object opencsv extends modules.common.Using {
+package object opencsv {
   def withCSVWriter[T](out:java.io.OutputStream, charset:String="UTF-8")(f:CSVWriter=>T):T = {
     using (new java.io.OutputStreamWriter(out, charset)) { osw =>
       using (new CSVWriter(osw)) { writer =>

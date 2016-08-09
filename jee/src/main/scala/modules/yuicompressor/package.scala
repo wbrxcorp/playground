@@ -2,8 +2,9 @@ package modules
 
 import java.io.{OutputStream, InputStream, InputStreamReader, Writer, OutputStreamWriter}
 import com.yahoo.platform.yui.compressor.{CssCompressor, JavaScriptCompressor}
+import modules.common.using
 
-package object yuicompressor extends modules.common.Using {
+package object yuicompressor {
   def compressJs(in:InputStream, out:Writer, config:Config = Config()):Unit = {
     //"application/javascript"
     using (new InputStreamReader(in)) { reader =>

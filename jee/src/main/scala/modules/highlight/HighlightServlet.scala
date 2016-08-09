@@ -2,13 +2,14 @@ package modules.highlight
 
 import java.io.File
 import org.apache.commons.io.IOUtils
+import modules.common.using
 
 class Entry(file:File) {
   def getName = if (isDir) file.getName + '/' else file.getName
   def isDir = file.isDirectory
 }
 
-class HighlightServlet extends modules.scalatra.JsonSupport with modules.scalatra.LogErrors with modules.common.Using {
+class HighlightServlet extends modules.scalatra.JsonSupport with modules.scalatra.LogErrors {
   import modules.velocity._
   import modules.file._
   import modules.pegdown._
