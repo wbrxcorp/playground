@@ -85,6 +85,6 @@ assemblyMergeStrategy in assembly := {
 mainClass in assembly := Some("ConsoleMain")
 test in assembly := {}
 
-initialCommands in console := (((new File(".") / "src/main/scala/modules") * "*" * "package.scala"):PathFinder).get.map("import modules." + _.getParentFile.getName + "._").mkString(";") + ";initDefaultDatabase;migrateDefaultDatabase;import scalikejdbc._;implicit val dbsession = AutoSession"
+initialCommands in console := (((new File(".") / "src/main/scala/modules") * "*" * "package.scala"):PathFinder).get.map("import modules." + _.getParentFile.getName + "._").mkString(";") + ";initDefaultDatabase;migrateDefaultDatabase;import scalikejdbc._"
 
 buildInfoKeys := Seq[BuildInfoKey](name, version, scalaVersion, sbtVersion,initialCommands in console) //buildInfoPackage := "buildinfo"
