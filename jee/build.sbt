@@ -19,26 +19,24 @@ parallelExecution in Test := false
 libraryDependencies += "org.apache.httpcomponents" % "httpclient" % "4.5.2" // http://mvnrepository.com/artifact/org.apache.httpcomponents/httpclient
 libraryDependencies += "org.flywaydb" % "flyway-core" % "4.0.3" // http://mvnrepository.com/artifact/org.flywaydb/flyway-core
 libraryDependencies += "com.h2database" % "h2" % "1.4.192" // http://mvnrepository.com/artifact/com.h2database/h2
-libraryDependencies += "org.scalikejdbc" % "scalikejdbc_2.11" % "2.4.2" // http://mvnrepository.com/artifact/org.scalikejdbc/scalikejdbc_2.11
 libraryDependencies += "commons-io" % "commons-io" % "2.5" // http://mvnrepository.com/artifact/commons-io/commons-io
 libraryDependencies += "mysql" % "mysql-connector-java" % "6.0.3" // http://mvnrepository.com/artifact/mysql/mysql-connector-java
 libraryDependencies += "joda-time" % "joda-time" % "2.9.4"  // http://mvnrepository.com/artifact/joda-time/joda-time
-
 libraryDependencies += "ch.qos.logback" % "logback-classic" % "1.1.7" // http://mvnrepository.com/artifact/ch.qos.logback/logback-classic
 libraryDependencies += "com.typesafe.scala-logging" % "scala-logging-slf4j_2.11" % "2.1.2" // http://mvnrepository.com/artifact/com.typesafe.scala-logging/scala-logging-slf4j_2.11
 libraryDependencies += "org.slf4j" % "jcl-over-slf4j" % "1.7.21"  // http://mvnrepository.com/artifact/org.slf4j/jcl-over-slf4j
-
 libraryDependencies += "org.jsoup" % "jsoup" % "1.9.2"  // http://mvnrepository.com/artifact/org.jsoup/jsoup
 libraryDependencies += "com.mashape.unirest" % "unirest-java" % "1.4.9" // http://mvnrepository.com/artifact/com.mashape.unirest/unirest-java
 libraryDependencies += "com.opencsv" % "opencsv" % "3.8" // http://mvnrepository.com/artifact/com.opencsv/opencsv
-
 libraryDependencies += "org.apache.velocity" % "velocity" % "1.7"  //http://mvnrepository.com/artifact/org.apache.velocity/velocity
 libraryDependencies += "org.pegdown" % "pegdown" % "1.6.0" // http://mvnrepository.com/artifact/org.pegdown/pegdown
 libraryDependencies += "org.eclipse.jgit" % "org.eclipse.jgit" % "4.4.1.201607150455-r" // http://mvnrepository.com/artifact/org.eclipse.jgit/org.eclipse.jgit
 libraryDependencies += "org.jsoup" % "jsoup" % "1.9.2" // http://mvnrepository.com/artifact/org.jsoup/jsoup
 libraryDependencies += "com.yahoo.platform.yui" % "yuicompressor" % "2.4.8" // http://mvnrepository.com/artifact/com.yahoo.platform.yui/yuicompressor
-libraryDependencies += "io.apigee.trireme" % "trireme-core" % "0.8.9" // https://mvnrepository.com/artifact/io.apigee.trireme/trireme-core
-libraryDependencies += "io.apigee.trireme" % "trireme-node10src" % "0.8.9" // https://mvnrepository.com/artifact/io.apigee.trireme/trireme-node10
+
+libraryDependencies ++= Seq(
+  "scalikejdbc_2.11","scalikejdbc-syntax-support-macro_2.11"
+).map("org.scalikejdbc" % _ % "2.4.2")
 
 libraryDependencies ++= Seq(
   "scalatra_2.11", "scalatra-json_2.11"
