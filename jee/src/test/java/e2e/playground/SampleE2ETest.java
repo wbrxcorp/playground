@@ -1,8 +1,8 @@
-package e2e;
+package e2e.playground;
 
 import org.junit.Test;
 
-public class SampleE2ETest extends E2ETestBase {
+public class SampleE2ETest extends e2e.E2ETestBase {
   @Test public void testBar()
   {
     driver.get(root() + "/markdown/");

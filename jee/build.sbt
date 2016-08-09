@@ -69,6 +69,13 @@ libraryDependencies ++= Seq(
   "selenium-chrome-driver"  // http://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-chrome-driver
 ).map("org.seleniumhq.selenium" % _ % "2.53.1" % Test)
 
+val e2etest = taskKey[Unit]("Execute e2e.[projectname].* tests")
+e2etest := (Def.taskDyn {
+  val nameStr = name.value
+  Def.task {
+    (testOnly in Test).toTask(s" e2e.${nameStr}.*").value
+  }
+}).value
 
 assemblyMergeStrategy in assembly := {
   case PathList("javax", "servlet", xs @ _*)         => MergeStrategy.first

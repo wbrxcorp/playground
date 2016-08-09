@@ -25,7 +25,7 @@ public class E2ETestBase {
 
   static Server server;
   static int port;
-  static ChromeDriver driver;
+  protected static ChromeDriver driver;
 
   @BeforeClass public static void beforeClass()
   {
@@ -39,7 +39,7 @@ public class E2ETestBase {
     server.stop();
   }
 
-  String root() { return "http://localhost:" + port + "/"; }
+  protected String root() { return "http://localhost:" + port + "/"; }
 
   @Before public void before() { driver.get(root()); }
   @After public void after() { driver.close(); }
