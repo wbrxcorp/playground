@@ -11,3 +11,8 @@ object Main extends App {
     def handle(sig:Signal):Unit = server.stop
   }))
 }
+
+object ConsoleMain extends App {
+  modules.config.loadConfig(args.toSeq.headOption.getOrElse("standalone"))
+  modules.console.runConsole
+}

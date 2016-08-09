@@ -13,9 +13,11 @@ buildProperties := {
 name := Option(buildProperties.value.getProperty("name")).getOrElse("playground")
 scalaVersion := Option(buildProperties.value.getProperty("scalaVersion")).getOrElse("2.11.8")
 version := Option(buildProperties.value.getProperty("version")).getOrElse("0.20160809")
+mainClass in (Compile, run) := Some("Main")
 
 parallelExecution in Test := false
 
+libraryDependencies += "org.scala-lang" % "scala-compiler" % "2.11.8" // http://mvnrepository.com/artifact/org.scala-lang/scala-compiler
 libraryDependencies += "org.apache.httpcomponents" % "httpclient" % "4.5.2" // http://mvnrepository.com/artifact/org.apache.httpcomponents/httpclient
 libraryDependencies += "org.flywaydb" % "flyway-core" % "4.0.3" // http://mvnrepository.com/artifact/org.flywaydb/flyway-core
 libraryDependencies += "com.h2database" % "h2" % "1.4.192" // http://mvnrepository.com/artifact/com.h2database/h2
@@ -80,6 +82,9 @@ assemblyMergeStrategy in assembly := {
     val oldStrategy = (assemblyMergeStrategy in assembly).value
     oldStrategy(x)
 }
+mainClass in assembly := Some("ConsoleMain")
+test in assembly := {}
 
-buildInfoKeys := Seq[BuildInfoKey](name, version, scalaVersion, sbtVersion) //buildInfoPackage := "buildinfo"
-initialCommands in console := Seq("cms","common","config","fakephp","file","flyway","hash","image","javascript","jgit","jsonorg","movabletype","mysql","opencsv","pegdown","poi","reflect","scalikejdbc","serialization","trireme","unirest","webapp").map("import modules.%s._".format(_)).mkString(";") + ";initDefaultDatabase;migrateDefaultDatabase;import scalikejdbc._;implicit val dbsession = AutoSession"
+initialCommands in console := (((new File(".") / "src/main/scala/modules") * "*" * "package.scala"):PathFinder).get.map("import modules." + _.getParentFile.getName + "._").mkString(";") + ";initDefaultDatabase;migrateDefaultDatabase;import scalikejdbc._;implicit val dbsession = AutoSession"
+
+buildInfoKeys := Seq[BuildInfoKey](name, version, scalaVersion, sbtVersion,initialCommands in console) //buildInfoPackage := "buildinfo"
