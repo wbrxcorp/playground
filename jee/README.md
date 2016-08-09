@@ -21,9 +21,14 @@ git fetch upstream
 git merge upstream/master
 ```
 
+## ダウンストリームのカスタマイズ
+
+project/build.propertiesファイルを作成し、そこに name, scalaVersion, version を Javaのproperties形式で書き込む。
+
 ## 起動
 
-jee/ 以下で sbt run すると REPLに入る。また、同時にWebインターフェイスも起動する。REPLを抜けるには :quit とする。ターミナルがおかしくなっているので適宜resetすること。
+sbt run で Webインターフェイスが起動する。停止するには Ctrl+Cする(Windowsでは止まらないのでターミナルを閉じる)
+sbt console すると REPLに入る。REPLを抜けるには :quit とする。
 
 ## プロファイル
 
@@ -60,4 +65,3 @@ sbt 'export test:fullClasspath'
 ```
 sbt ensimeConfig
 ```
-

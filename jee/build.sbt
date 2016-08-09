@@ -1,9 +1,19 @@
 enablePlugins(BuildInfoPlugin)
 enablePlugins(JettyPlugin)
 
-name := "playground"
-scalaVersion := "2.11.8"
-version := "0.20160726"
+// http://stackoverflow.com/questions/25665848/how-to-load-setting-values-from-a-java-properties-file
+val buildProperties = settingKey[java.util.Properties]("The build properties")
+
+buildProperties := {
+  val prop = new java.util.Properties()
+  IO.load(prop, new File("project%sbuild.properties".format(System.getProperty("file.separator"))))
+  prop
+}
+
+name := Option(buildProperties.value.getProperty("name")).getOrElse("playground")
+scalaVersion := Option(buildProperties.value.getProperty("scalaVersion")).getOrElse("2.11.8")
+version := Option(buildProperties.value.getProperty("version")).getOrElse("0.20160809")
+
 parallelExecution in Test := false
 
 libraryDependencies += "org.apache.httpcomponents" % "httpclient" % "4.5.2" // http://mvnrepository.com/artifact/org.apache.httpcomponents/httpclient
