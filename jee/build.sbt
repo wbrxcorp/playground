@@ -30,11 +30,12 @@ libraryDependencies += "org.slf4j" % "jcl-over-slf4j" % "1.7.21"  // http://mvnr
 libraryDependencies += "org.jsoup" % "jsoup" % "1.9.2"  // http://mvnrepository.com/artifact/org.jsoup/jsoup
 libraryDependencies += "com.mashape.unirest" % "unirest-java" % "1.4.9" // http://mvnrepository.com/artifact/com.mashape.unirest/unirest-java
 libraryDependencies += "com.opencsv" % "opencsv" % "3.8" // http://mvnrepository.com/artifact/com.opencsv/opencsv
-libraryDependencies += "org.apache.velocity" % "velocity" % "1.7"  //http://mvnrepository.com/artifact/org.apache.velocity/velocity
+libraryDependencies += "org.apache.velocity" % "velocity" % "1.7"  // http://mvnrepository.com/artifact/org.apache.velocity/velocity
 libraryDependencies += "org.pegdown" % "pegdown" % "1.6.0" // http://mvnrepository.com/artifact/org.pegdown/pegdown
 libraryDependencies += "org.eclipse.jgit" % "org.eclipse.jgit" % "4.4.1.201607150455-r" // http://mvnrepository.com/artifact/org.eclipse.jgit/org.eclipse.jgit
 libraryDependencies += "org.jsoup" % "jsoup" % "1.9.2" // http://mvnrepository.com/artifact/org.jsoup/jsoup
 libraryDependencies += "com.yahoo.platform.yui" % "yuicompressor" % "2.4.8" // http://mvnrepository.com/artifact/com.yahoo.platform.yui/yuicompressor
+libraryDependencies += "com.jakewharton.fliptables" % "fliptables" % "1.0.2" // https://mvnrepository.com/artifact/com.jakewharton.fliptables/fliptables
 
 libraryDependencies ++= Seq(
   "scalikejdbc_2.11","scalikejdbc-syntax-support-macro_2.11"
@@ -54,7 +55,7 @@ libraryDependencies ++= Seq(
 
 libraryDependencies ++= Seq(
   "jetty-webapp","jetty-plus"
-).map("org.eclipse.jetty" % _ % "9.3.10.v20160621") // http://mvnrepository.com/artifact/org.eclipse.jetty/jetty-webapp
+).map("org.eclipse.jetty" % _ % "9.3.11.v20160721") // http://mvnrepository.com/artifact/org.eclipse.jetty/jetty-webapp
 
 libraryDependencies ++= Seq(
   "trireme-core", // https://mvnrepository.com/artifact/io.apigee.trireme/trireme-core
