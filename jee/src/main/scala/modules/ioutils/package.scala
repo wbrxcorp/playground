@@ -2,6 +2,7 @@ package modules
 
 import java.io.{InputStream,OutputStream,Reader,Writer}
 import java.nio.charset.Charset
+import scala.language.implicitConversions
 import org.apache.commons.io.IOUtils
 import org.apache.commons.io.LineIterator
 
@@ -27,7 +28,7 @@ package object ioutils {
   // :
   def toByteArray(input:InputStream):Array[Byte] = IOUtils.toByteArray(input)
   // :
-  def toByteArray(input:Reader, encoding:Charset=defaultCharset):Array[Byte] = IOUtils.toByteArray(input)
+  def toByteArray(input:Reader, encoding:Charset=defaultCharset):Array[Byte] = IOUtils.toByteArray(input, encoding)
   // :
   def toString(input:InputStream, encoding:Charset=defaultCharset):String = IOUtils.toString(input, encoding)
   def toString(input:Reader):String = IOUtils.toString(input)

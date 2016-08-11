@@ -1,6 +1,6 @@
 package modules
 
-package object scalikejdbc {
+package object scalikejdbc extends com.typesafe.scalalogging.slf4j.LazyLogging {
   import _root_.scalikejdbc._
   val config = modules.config.get
   implicit val session = AutoSession
@@ -16,15 +16,20 @@ package object scalikejdbc {
   }
 
   def p(query:_root_.scalikejdbc.SQL[Nothing,_root_.scalikejdbc.NoExtractor])(implicit session:_root_.scalikejdbc.DBSession):Unit = {
-    val rows = query.toMap.list.apply
-    val header = rows.headOption.map { firstRow =>
-      firstRow.map(_._1)
-    }.getOrElse(Seq("EMPTY RESULT"))
+    try {
+      val rows = query.toMap.list.apply
+      val header = rows.headOption.map { firstRow =>
+        firstRow.map(_._1)
+      }.getOrElse(Seq("EMPTY RESULT"))
 
-    val rowsArray = rows.map { row =>
-      row.map(_._2.toString).toArray
-    }.toArray
+      val rowsArray = rows.map { row =>
+        row.map(_._2.toString).toArray
+      }.toArray
 
-    println(com.jakewharton.fliptables.FlipTable.of(header.toArray,rowsArray))
+      println(com.jakewharton.fliptables.FlipTable.of(header.toArray,rowsArray))
+    }
+    catch {
+      case e:java.sql.SQLException => logger.error("SQLException code:%d".format(e.getErrorCode))
+    }
   }
 }

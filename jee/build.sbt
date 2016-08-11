@@ -13,6 +13,7 @@ buildProperties := {
 name := Option(buildProperties.value.getProperty("name")).getOrElse("playground")
 scalaVersion := Option(buildProperties.value.getProperty("scalaVersion")).getOrElse("2.11.8")
 version := Option(buildProperties.value.getProperty("version")).getOrElse("0.20160809")
+scalacOptions ++= Seq("-feature", "-deprecation")
 mainClass in (Compile, run) := Some("Main")
 
 parallelExecution in Test := false
