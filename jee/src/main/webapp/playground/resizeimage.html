@@ -45,7 +45,7 @@
         }).success(function(data) {
           object[propertyName] = data;
         }).error(function(data, status) {
-          $window.alert("画像ファイルのアップロードに失敗しました。ファイルが破損しているか、非対応の形式化、サイズが大きすぎるなどの原因が考えられます (" + status + ")");
+          $window.alert("画像ファイルのアップロードに失敗しました。ファイルが破損しているか、非対応の形式か、サイズが大きすぎるなどの原因が考えられます (" + status + ")");
         });
       };
       $scope.getImage = function(image) {
