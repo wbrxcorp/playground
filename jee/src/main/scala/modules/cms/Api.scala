@@ -55,8 +55,8 @@ class Api extends modules.scalatra.JsonSupport with modules.scalatra.LogErrors {
       }
 
       try {
-        val (image, filetype) = resizeImage(request.getInputStream, params.get("sizespec"))
-        Ok(imageToDataURI("image/%s".format(filetype), image), Map("Content-Type" -> ("text/plain")))
+        val (image, format) = resizeImage(request.getInputStream, params.get("sizespec"))
+        Ok(toDataURI(format, image), Map("Content-Type" -> ("text/plain")))
       }
       catch {
         case e:IllegalArgumentException => BadRequest("Invalid image file")

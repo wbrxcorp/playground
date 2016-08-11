@@ -13,7 +13,8 @@ trait Config {
     classOf[modules.scalikejdbc.ScalatraBootstrap],
     classOf[modules.flyway.ScalatraBootstrap],
     classOf[modules.highlight.ScalatraBootstrap],
-    classOf[modules.cms.ScalatraBootstrap]
+    classOf[modules.cms.ScalatraBootstrap],
+    classOf[modules.playground.ScalatraBootstrap]
   )
 
   // ScalikeJDBC設定

@@ -6,12 +6,32 @@ import java.io.InputStream
 import javax.imageio.ImageIO
 
 package object image {
+  import modules.blobstore._
+
   private val dummyImageCache = new scala.collection.mutable.HashMap[(Int,Int,String,String), Array[Byte]]
   private val sizespecFormat = """(\d+)[xX](\d+)""".r
 
-  def dummyImage(width:Int, height:Int, text:String="Now Printing", format:String="png"):Array[Byte] = {
+  def parseImageDataURI(dataURI:String):(ImageContentType,Array[Byte]) = {
+    val (contentType, content) = parseDataURI(dataURI)
+    (ImageContentType(contentType), content)
+  }
+
+  def toDataURI(contentType:ImageContentType, content:Array[Byte]):String = {
+    modules.blobstore.toDataURI(contentType.toString, content)
+  }
+
+  def toDataURI(format:ImageFormat, content:Array[Byte]):String = toDataURI(format.toContentType, content)
+
+  def putImage(contentType:ImageContentType, content:Array[Byte]):String = putBlob(contentType.toString, content)
+  def getImage(id:String):Option[(ImageContentType,Array[Byte])] = {
+    getBlob(id).map { case (contentType, content) =>
+      (ImageContentType(contentType), content)
+    }
+  }
+
+  def dummyImage(width:Int, height:Int, text:String="Now Printing", format:ImageFormat=ImageFormat.PNG):Array[Byte] = {
     dummyImageCache.synchronized {
-      dummyImageCache.get((width,height,text,format)).getOrElse {
+      dummyImageCache.get((width,height,text,format.toString)).getOrElse {
         val bufferedImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB)
         val g = bufferedImage.getGraphics.asInstanceOf[Graphics2D]
 
@@ -28,9 +48,9 @@ package object image {
         g.drawString(text, ((width-bounds.getWidth)/2).toFloat, (height / 2).toFloat)
 
         val baos = new java.io.ByteArrayOutputStream()
-        javax.imageio.ImageIO.write(bufferedImage, format, baos)
+        javax.imageio.ImageIO.write(bufferedImage, format.toString, baos)
         val img = baos.toByteArray
-        dummyImageCache.put((width,height,text,format), img)
+        dummyImageCache.put((width,height,text,format.toString), img)
         img
       }
     }
@@ -39,7 +59,7 @@ package object image {
   /**
   * maxWidth x maxHeight のバウンディングボックスに収まるように画像をリサイズする
   */
- def resizeImage(source:InputStream, maxWidth:Option[Int], maxHeight:Option[Int]):(Array[Byte], String) = {
+ def resizeImage(source:InputStream, maxWidth:Option[Int], maxHeight:Option[Int]):(Array[Byte], ImageFormat) = {
    // http://stackoverflow.com/questions/21057191/can-i-tell-what-the-file-type-of-a-bufferedimage-originally-was
    val imageInputStream = ImageIO.createImageInputStream(source)
    val readers = ImageIO.getImageReaders(imageInputStream)
@@ -48,7 +68,7 @@ package object image {
     val reader = readers.next
     reader.setInput(imageInputStream)
     val original = reader.read(0)
-    val format = reader.getFormatName
+    val formatName = reader.getFormatName
 
     val (origWidth, origHeight) = (original.getWidth, original.getHeight)
     val (width, height) = (maxWidth, maxHeight) match {
@@ -71,12 +91,12 @@ package object image {
     destination.getGraphics.drawImage(scaled, 0, 0, width, height, null)
 
     val baos = new java.io.ByteArrayOutputStream()
-    ImageIO.write(destination, format, baos)
+    ImageIO.write(destination, formatName, baos)
 
-    (baos.toByteArray, format)
+    (baos.toByteArray, ImageFormat(formatName))
   }
 
-  def resizeImage(source:InputStream, sizespec:Option[String]):(Array[Byte], String) = {
+  def resizeImage(source:InputStream, sizespec:Option[String]):(Array[Byte], ImageFormat) = {
     val (maxWidth, maxHeight) = sizespec.map { str =>
       str match {
         case sizespecFormat(width, height) => (Some(width.toInt), Some(height.toInt))
@@ -84,9 +104,5 @@ package object image {
       }
     }.getOrElse((None, None))
     resizeImage(source, maxWidth, maxHeight)
-  }
-
-  def imageToDataURI(contentType:String, content:Array[Byte]):String = {
-    "data:%s;base64,%s".format(contentType, org.apache.commons.codec.binary.Base64.encodeBase64String(content))
   }
 }
