@@ -7,7 +7,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/danialfarid-angular-file-upload/12.0.4/ng-file-upload.js"></script>
   <script>
     angular.module("resizeimage", ["ui.bootstrap","ngFileUpload"])
-    .run(["$rootScope", "Upload",  function($scope, Upload) {
+    .run(["$rootScope", "$window", "Upload",  function($scope, $window, Upload) {
       $scope.entity = {
         image: null
       };
@@ -35,7 +35,7 @@
         if (!object || !propertyName || !file) return;
         if (!sizespec) sizespec = "1024x768";
         if (file.type.indexOf("image/") !== 0) {
-          console.log("Not an image file.");
+          $window.alert("画像ファイルではありません");
           return;
         }
         Upload.http({
@@ -45,7 +45,7 @@
         }).success(function(data) {
           object[propertyName] = data;
         }).error(function(data, status) {
-          $scope.messagebox("画像ファイルのアップロードに失敗しました。ファイルが破損しているか、大きすぎるなどの原因が考えられます (" + status + ")");
+          $window.alert("画像ファイルのアップロードに失敗しました。ファイルが破損しているか、非対応の形式化、サイズが大きすぎるなどの原因が考えられます (" + status + ")");
         });
       };
       $scope.getImage = function(image) {
