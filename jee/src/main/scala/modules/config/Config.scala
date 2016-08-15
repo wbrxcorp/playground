@@ -38,6 +38,10 @@ trait Config {
 
 // warでTomcatとかにデプロイされた時用のデフォルト設定
 trait DefaultDefaultConfig extends Config {
+  // データベース(MySQL)
+  override def defaultDatabaseURL:String = modules.mysql.getMySQLDatabaseURL(projectName, "localhost")
+  override def defaultDatabaseUser:String = projectName
+
   // ソースコードハイライトシステム設定
   override def highlightRoot:String = "/home/wbrxcorp/playground"
 }
