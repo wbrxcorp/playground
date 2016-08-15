@@ -13,7 +13,6 @@ trait Config {
     classOf[modules.scalikejdbc.ScalatraBootstrap],
     classOf[modules.flyway.ScalatraBootstrap],
     classOf[modules.highlight.ScalatraBootstrap],
-    classOf[modules.cms.ScalatraBootstrap],
     classOf[modules.playground.ScalatraBootstrap]
   )
 
@@ -26,22 +25,12 @@ trait Config {
   def defaultDatabaseUser:String = "sa"
   def defaultDatabasePassword:String = ""
 
-  // CMS用データベース設定
-  def cmsDatabaseURL:String = modules.h2.getMySQLCompatibleH2InMemoryDatabaseURL("cms")
-  def cmsDatabaseUser:String = "sa"
-  def cmsDatabasePassword:String = ""
-
   // ソースコードハイライトシステム設定
   def highlightRoot:String = ".."
 }
 
 // warでTomcatとかにデプロイされた時用のデフォルト設定
 trait DefaultDefaultConfig extends Config {
-  // CMS用データベース設定
-  override def cmsDatabaseURL:String = modules.mysql.getMySQLDatabaseURL("cms")
-  override def cmsDatabaseUser:String = "cms"
-  override def cmsDatabasePassword:String = ""
-
   // ソースコードハイライトシステム設定
   override def highlightRoot:String = "/home/wbrxcorp/playground"
 }
