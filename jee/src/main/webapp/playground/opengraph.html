@@ -1,0 +1,25 @@
+<html>
+<head>
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/2.0.0/ui-bootstrap-tpls.js"></script>
+  <script>
+    angular.module("OpenGraph", ["ui.bootstrap"])
+    .run(["$rootScope",  function($scope) {
+      $scope.title = "OpenGraphのテスト";
+      $scope.description = "OpenGraphのメタデータをAngularJSで動的生成した場合の挙動をテストするためのページです";
+    }]);
+    angular.element(document).ready(function() {
+      angular.bootstrap(document, ['OpenGraph']);
+    });
+  </script>
+  <title>{{title}}</title>
+  <meta property="og:title" content="{{title}}"/>
+  <meta property="og:description" content="{{description}}" />
+</head>
+<body>
+  <div class="container">
+    OpenGraphのテスト
+  </div>
+</body>
+</html>
