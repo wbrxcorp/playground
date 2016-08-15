@@ -19,6 +19,13 @@ package object flyway extends com.typesafe.scalalogging.slf4j.LazyLogging {
 
   def migrate(dataSource:javax.sql.DataSource):Unit = migrate(dataSource, defaultLocations)
 
+  def repairMigration(url:String,username:String,password:String,locations:String=defaultLocations):Unit = {
+    val flyway = new org.flywaydb.core.Flyway()
+    flyway.setLocations(locations)
+    flyway.setDataSource(url, username, password)
+    flyway.repair()
+  }
+
   def migrateDefaultDatabase():Unit = {
     val config = modules.config.get
 
