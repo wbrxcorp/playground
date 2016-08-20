@@ -15,7 +15,10 @@ scalaVersion := Option(buildProperties.value.getProperty("scalaVersion")).getOrE
 version := Option(buildProperties.value.getProperty("version")).getOrElse("0.20160815")
 scalacOptions ++= Seq("-feature", "-deprecation")
 mainClass in (Compile, run) := Some("Main")
+javaSource in Compile := scala.util.Try(java.lang.Runtime.getRuntime.exec("javac").waitFor).map(x=>baseDirectory.value / "src" / "main" / "java").getOrElse(file("DOES/NOT/EXIST"))
 
+//unmanagedSourceDirectories in Compile <<= (scalaSource in Compile)( _ :: Nil) // java sources are for test only
+//}
 parallelExecution in Test := false
 
 libraryDependencies += "org.scala-lang" % "scala-compiler" % "2.11.8" // http://mvnrepository.com/artifact/org.scala-lang/scala-compiler
@@ -55,7 +58,7 @@ libraryDependencies ++= Seq(
 ).map("org.apache.poi" % _ % "3.14")  // http://mvnrepository.com/artifact/org.apache.poi/poi
 
 libraryDependencies ++= Seq(
-  "jetty-webapp","jetty-plus"
+  "jetty-webapp","jetty-plus","jetty-annotations"
 ).map("org.eclipse.jetty" % _ % "9.3.11.v20160721") // http://mvnrepository.com/artifact/org.eclipse.jetty/jetty-webapp
 
 libraryDependencies ++= Seq(
