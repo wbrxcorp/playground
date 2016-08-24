@@ -40,6 +40,7 @@ libraryDependencies += "org.eclipse.jgit" % "org.eclipse.jgit" % "4.4.1.20160715
 libraryDependencies += "org.jsoup" % "jsoup" % "1.9.2" // http://mvnrepository.com/artifact/org.jsoup/jsoup
 libraryDependencies += "com.yahoo.platform.yui" % "yuicompressor" % "2.4.8" // http://mvnrepository.com/artifact/com.yahoo.platform.yui/yuicompressor
 libraryDependencies += "com.jakewharton.fliptables" % "fliptables" % "1.0.2" // https://mvnrepository.com/artifact/com.jakewharton.fliptables/fliptables
+libraryDependencies += "com.typesafe" % "config" % "1.3.0" // http://mvnrepository.com/artifact/com.typesafe/config
 
 libraryDependencies ++= Seq(
   "scalikejdbc_2.11","scalikejdbc-syntax-support-macro_2.11"

@@ -1,13 +1,17 @@
 package modules.config
 
+import collection.JavaConversions._
 import org.scalatra.LifeCycle
 
 trait Config {
   def projectName:String = buildinfo.BuildInfo.name
-
   // Jetty設定
-  def webAppPort:Int = 51234 + Integer.parseInt(modules.hash.sha1(projectName).substring(0,3), 16)// プロジェクト名のsha1sum文字列から3文字(4096種類)取ってポート番号にする
-  def webAppDirs:Array[String] = Array("src/main/webapp", "../htdocs")
+  def webAppPort:Int = staticConfig.getInt("modules.jetty.webAppPort") match {
+    case 0 =>
+      51234 + Integer.parseInt(modules.hash.sha1(projectName).substring(0,3), 16)// プロジェクト名のsha1sum文字列から3文字(4096種類)取ってポート番号にする
+    case x => x
+  }
+  def webAppDirs:Array[String] = staticConfig.getStringList("modules.jetty.webAppDirs").toList.toArray
 
   // Scalatra設定
   def additionalScalatraBootstrapClasses:Array[Class[_ <: LifeCycle]] = {
