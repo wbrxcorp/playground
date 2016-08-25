@@ -1,7 +1,7 @@
 package modules
 
 package object console {
-  private def isRunFromSBT = {
+  def isRunFromSBT = {
     val c = new java.io.CharArrayWriter()
     new Exception().printStackTrace(new java.io.PrintWriter(c))
     c.toString().contains("at sbt.")
