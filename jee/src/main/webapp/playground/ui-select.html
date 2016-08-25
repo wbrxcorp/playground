@@ -1,0 +1,43 @@
+<html>
+<head>
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-select/0.19.4/select.min.css" rel="stylesheet">
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular-sanitize.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/2.1.2/ui-bootstrap-tpls.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-select/0.19.4/select.js"></script>
+  <script>
+    angular.module("MyApp", ["ngSanitize","ui.bootstrap","ui.select"])
+    .run(["$rootScope",  function($scope) {
+      $scope.itemArray = [
+          {id: 1, name: 'first'},
+          {id: 2, name: 'second'},
+          {id: 3, name: 'third'},
+          {id: 4, name: 'fourth'},
+          {id: 5, name: 'fifth'},
+      ];
+
+      $scope.selected = $scope.itemArray[0];
+    }]);
+    angular.element(document).ready(function() {
+      angular.bootstrap(document, ['MyApp']);
+    });
+  </script>
+  <title>ui-select</title>
+</head>
+<body>
+  <div class="container" id="top">
+    <h1>ui-select</h1>
+    <ui-select ng-model="selected">
+      <ui-select-match>
+        <span ng-bind="$select.selected.name"></span>
+      </ui-select-match>
+      <ui-select-choices repeat="item in (itemArray | filter: $select.search) track by item.id">
+        <span ng-bind="item.id"></span> | <span ng-bind="item.name"></span>
+      </ui-select-choices>
+    </ui-select>
+
+    <p>selected: {{selected}}</p>
+  </div>
+</body>
+</html>
