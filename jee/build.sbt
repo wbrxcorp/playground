@@ -21,6 +21,8 @@ javaSource in Compile := scala.util.Try(java.lang.Runtime.getRuntime.exec("javac
 //}
 parallelExecution in Test := false
 
+resolvers += "jitpack" at "https://jitpack.io"
+
 libraryDependencies += "org.scala-lang" % "scala-compiler" % "2.11.8" // http://mvnrepository.com/artifact/org.scala-lang/scala-compiler
 libraryDependencies += "org.apache.httpcomponents" % "httpclient" % "4.5.2" // http://mvnrepository.com/artifact/org.apache.httpcomponents/httpclient
 libraryDependencies += "org.flywaydb" % "flyway-core" % "4.0.3" // http://mvnrepository.com/artifact/org.flywaydb/flyway-core
@@ -41,6 +43,7 @@ libraryDependencies += "org.jsoup" % "jsoup" % "1.9.2" // http://mvnrepository.c
 libraryDependencies += "com.yahoo.platform.yui" % "yuicompressor" % "2.4.8" // http://mvnrepository.com/artifact/com.yahoo.platform.yui/yuicompressor
 libraryDependencies += "com.jakewharton.fliptables" % "fliptables" % "1.0.2" // https://mvnrepository.com/artifact/com.jakewharton.fliptables/fliptables
 libraryDependencies += "com.typesafe" % "config" % "1.3.0" // http://mvnrepository.com/artifact/com.typesafe/config
+libraryDependencies += "org.develnext.jphp" % "jphp-core" % "0.8.0" // https://github.com/jphp-compiler/jphp
 
 libraryDependencies ++= Seq(
   "scalikejdbc_2.11","scalikejdbc-syntax-support-macro_2.11"
