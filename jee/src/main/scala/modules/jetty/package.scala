@@ -10,6 +10,12 @@ package object jetty {
     root.setClassLoader(new java.net.URLClassLoader(new Array[java.net.URL](0), this.getClass().getClassLoader()))
     root.setInitParameter("org.eclipse.jetty.servlet.Default.useFileMappedBuffer", "false")
 
+    // enable CGI
+    val servletHolder = new org.eclipse.jetty.servlet.ServletHolder
+    servletHolder.setClassName("org.eclipse.jetty.servlets.CGI")
+    servletHolder.setAsyncSupported(true)
+    root.addServlet(servletHolder, "*.cgi")
+
     val server = new Server(port)
     server.setHandler(root)
     server.start

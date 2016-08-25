@@ -59,7 +59,7 @@ libraryDependencies ++= Seq(
 ).map("org.apache.poi" % _ % "3.14")  // http://mvnrepository.com/artifact/org.apache.poi/poi
 
 libraryDependencies ++= Seq(
-  "jetty-webapp","jetty-plus","jetty-annotations"
+  "jetty-webapp","jetty-plus","jetty-annotations","jetty-servlets"
 ).map("org.eclipse.jetty" % _ % "9.3.11.v20160721") // http://mvnrepository.com/artifact/org.eclipse.jetty/jetty-webapp
 
 libraryDependencies ++= Seq(
