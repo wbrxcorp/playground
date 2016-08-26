@@ -65,3 +65,7 @@ sbt 'export test:fullClasspath'
 ```
 sbt ensimeConfig
 ```
+
+## IntelliJ IDEAを使う場合
+
+Scalaプラグイン入りのIntelliJで、Import Projectで jee を SBT でインポートする。デフォルトではJUnitの実行が変なワーキングディレクトリで行われてしまうため。Run/Debug ConfigurationsでJUnitの Configuration - Working Directory を $MODULE_DIR$ から $PROJECT_DIR$ に変更する。
