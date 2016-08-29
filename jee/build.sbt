@@ -14,7 +14,7 @@ name := Option(buildProperties.value.getProperty("name")).getOrElse("playground"
 scalaVersion := Option(buildProperties.value.getProperty("scalaVersion")).getOrElse("2.11.8")
 version := Option(buildProperties.value.getProperty("version")).getOrElse("0.20160815")
 scalacOptions ++= Seq("-feature", "-deprecation")
-mainClass in (Compile, run) := Some("Main")
+mainClass in (Compile, run) := Some("WebAndSQLMain")
 javaSource in Compile := scala.util.Try(java.lang.Runtime.getRuntime.exec("javac").waitFor).map(x=>baseDirectory.value / "src" / "main" / "java").getOrElse(file("DOES/NOT/EXIST"))
 
 //unmanagedSourceDirectories in Compile <<= (scalaSource in Compile)( _ :: Nil) // java sources are for test only

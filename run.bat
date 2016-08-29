@@ -1,3 +1,3 @@
 cd %~dp0\jee
-sbt.bat run
+sbt.bat "run-main WebMain"
 

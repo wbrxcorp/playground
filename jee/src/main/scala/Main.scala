@@ -1,6 +1,6 @@
 import sun.misc.Signal
 
-object Main extends App {
+object WebMain extends App {
   // 第1引数をプロファイル名として使用、省略時は "standalone" (modules.config.DefaultStandaloneConfig 又は profiles.standalone.Config)
   modules.config.loadConfig(args.toSeq.headOption.getOrElse("standalone"))
 
@@ -15,4 +15,16 @@ object Main extends App {
 object ConsoleMain extends App {
   modules.config.loadConfig(args.toSeq.headOption.getOrElse("standalone"))
   modules.console.runConsole
+}
+
+object WebAndSQLMain extends App {
+  modules.config.loadConfig(args.toSeq.headOption.getOrElse("standalone"))
+  val (server, port) = modules.jetty.startServer
+  println("http://localhost:%d".format(port))
+
+  val config = modules.config.get
+  modules.common.using(java.sql.DriverManager.getConnection(config.defaultDatabaseURL, config.defaultDatabaseUser, config.defaultDatabasePassword)) { conn =>
+    (new org.h2.tools.Shell).runTool(conn)
+  }
+  server.stop
 }
