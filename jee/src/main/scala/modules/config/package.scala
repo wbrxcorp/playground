@@ -6,7 +6,7 @@ package object config extends com.typesafe.scalalogging.slf4j.LazyLogging {
   def projectName:String = buildinfo.BuildInfo.name
 
   val defaultConfigs = Map("default"->DefaultDefaultConfig, "standalone"->DefaultStandaloneConfig)
-  var currentConfig:Config = DefaultStandaloneConfig // loadConfigを一度も呼び出さない場合のデフォルト
+  var currentConfig:Config = DefaultDefaultConfig // loadConfigを一度も呼び出さない場合のデフォルト
   val staticConfig = ConfigFactory.load
 
   def loadConfig(profile:String="default"):Unit = {
