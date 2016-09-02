@@ -46,4 +46,9 @@ package object flyway extends com.typesafe.scalalogging.slf4j.LazyLogging {
         }
     }
   }
+
+  def migrateDefaultDatabaseIfNecessary():Unit = {
+    if (modules.config.get.defaultDatabaseMigration) migrateDefaultDatabase()
+    else logger.info("Skipping migration due to (profile.)modules.flyway.migrateDefaultDatabase=false")
+  }
 }

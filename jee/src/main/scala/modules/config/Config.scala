@@ -33,6 +33,7 @@ trait Config {
   def defaultJNDIDataSourceName = "jdbc/%s".format(projectName)
   def defaultDatabaseURL:String = modules.h2.getMySQLCompatibleH2InMemoryDatabaseURL(projectName)
   def defaultDatabaseMigrationLocations:Option[String] = Some("db/%s/migration".format(projectName))
+  def defaultDatabaseMigration:Boolean = staticConfig.getBoolean("modules.flyway.migrateDefaultDatabase")
   def defaultDatabaseUser:String = "sa"
   def defaultDatabasePassword:String = ""
 
@@ -45,6 +46,7 @@ trait DefaultDefaultConfig extends Config {
   // データベース(MySQL)
   override def defaultDatabaseURL:String = modules.mysql.getMySQLDatabaseURL(projectName, "localhost")
   override def defaultDatabaseUser:String = projectName
+  override def defaultDatabaseMigration:Boolean = staticConfig.getBoolean("default.modules.flyway.migrateDefaultDatabase")
 
   // ソースコードハイライトシステム設定
   override def highlightRoot:String = "/home/wbrxcorp/playground"

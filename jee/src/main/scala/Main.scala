@@ -13,7 +13,7 @@ object WebMain extends App {
 }
 
 object ConsoleMain extends App {
-  modules.config.loadConfig(args.toSeq.headOption.getOrElse("standalone"))
+  modules.config.loadConfig(args.toSeq.headOption.getOrElse("default"))
   modules.console.runConsole
 }
 
