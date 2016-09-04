@@ -12,7 +12,7 @@ buildProperties := {
 
 name := Option(buildProperties.value.getProperty("name")).getOrElse("playground")
 scalaVersion := Option(buildProperties.value.getProperty("scalaVersion")).getOrElse("2.11.8")
-version := Option(buildProperties.value.getProperty("version")).getOrElse("0.20160815")
+version := Option(buildProperties.value.getProperty("version")).getOrElse("0.20160904")
 scalacOptions ++= Seq("-feature", "-deprecation")
 mainClass in (Compile, run) := Some("WebAndSQLMain")
 javaSource in Compile := scala.util.Try(java.lang.Runtime.getRuntime.exec("javac").waitFor).map(x=>baseDirectory.value / "src" / "main" / "java").getOrElse(file("DOES/NOT/EXIST"))
@@ -44,6 +44,7 @@ libraryDependencies += "com.yahoo.platform.yui" % "yuicompressor" % "2.4.8" // h
 libraryDependencies += "com.jakewharton.fliptables" % "fliptables" % "1.0.2" // https://mvnrepository.com/artifact/com.jakewharton.fliptables/fliptables
 libraryDependencies += "com.typesafe" % "config" % "1.3.0" // http://mvnrepository.com/artifact/com.typesafe/config
 libraryDependencies += "org.develnext.jphp" % "jphp-core" % "0.8.0" // https://github.com/jphp-compiler/jphp
+libraryDependencies += "com.lihaoyi" % "pprint_2.11" % "0.4.2" // http://mvnrepository.com/artifact/com.lihaoyi/pprint_2.11
 
 libraryDependencies ++= Seq(
   "scalikejdbc_2.11","scalikejdbc-syntax-support-macro_2.11"

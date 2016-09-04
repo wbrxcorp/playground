@@ -1,0 +1,16 @@
+{
+  "__comments":"ui-gridサンプル用のカラム定義。プレビュー(グリッド内表示)用と、CSVダウンロード用でそれぞれカラム定義ができる。nameはカラムの内部名、labelはグリッドやCSVのヘッダに表示する項目名",
+  "gridConfig":[
+    {
+      "name":"typeA",
+      "previewColumns":[{"name":"名前","label":"氏名"},{"name":"ふりがな"}],
+      "downloadColumns":[{"name":"名前","label":"氏名"},{"name":"ふりがな"},{"name":"携帯"}]
+    },
+    {
+      "name":"typeB",
+      "label":"タイプB",
+      "previewColumns":[{"name":"名前"},{"name":"ふりがな"},{"name":"アドレス"},{"name":"性別"},{"name":"年齢"}],
+      "downloadColumns":[{"name":"名前"},{"name":"ふりがな"},{"name":"アドレス"},{"name":"性別"},{"name":"年齢"},{"name":"誕生日"},{"name":"婚姻"},{"name":"都道府県"},{"name":"携帯"},{"name":"キャリア"},{"name":"カレーの食べ方"}]
+    }
+  ]
+}

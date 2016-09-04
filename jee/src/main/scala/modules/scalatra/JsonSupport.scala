@@ -12,14 +12,18 @@ object Failure extends Result(false, None) {
 }
 
 object ResultSerializer extends org.json4s.Serializer[Result] {
+  private val ResultClass = classOf[Result]
   def deserialize(implicit format:Formats): PartialFunction[(org.json4s.TypeInfo, JValue), Result] = {
-    throw new org.json4s.MappingException("Deserializing Result class is not supporeted")
+    case (TypeInfo(ResultClass, _), json) => json match {
+      case JObject(JField("success", JBool(success)) :: _) => Result(success)
+      case x => throw new org.json4s.MappingException("Cannot convert " + x + " to Result")
+    }
   }
 
   def serialize(implicit formats:Formats): PartialFunction[Any, JValue] = {
-    case x:Result =>
+    case Result(success,info) =>
       import org.json4s.JsonDSL._
-      ("success" -> x.success) ~ ("info" -> org.json4s.Extraction.decompose(x.info))
+      ("success" -> success) ~ ("info" -> org.json4s.Extraction.decompose(info))
   }
 }
 

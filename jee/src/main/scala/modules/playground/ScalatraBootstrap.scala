@@ -8,5 +8,6 @@ class ScalatraBootstrap extends org.scalatra.LifeCycle with com.typesafe.scalalo
     logger.info("Test dummy image: /playground/blobtest/%s.png".format(id))
     context.mount(classOf[modules.blobstore.BlobServlet], "/playground/blob/*")
     context.mount(classOf[modules.image.ResizeImageServlet], "/playground/resizeimage/*")
+    context.mount(classOf[modules.playground.GridServlet], "/playground/grid/*")
   }
 }
