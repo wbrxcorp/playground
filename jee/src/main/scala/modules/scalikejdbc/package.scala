@@ -24,7 +24,13 @@ package object scalikejdbc extends com.typesafe.scalalogging.slf4j.LazyLogging {
 
   def p(query:_root_.scalikejdbc.SQL[Nothing,_root_.scalikejdbc.NoExtractor])(implicit session:_root_.scalikejdbc.DBSession):Unit = {
     try {
-      val rows = query.toMap.list.apply
+      val rows = query.map { row =>
+        val metadata = row.metaData
+        Range(1, metadata.getColumnCount + 1).map { col =>
+          val rowMap = row.toMap
+          (metadata.getColumnLabel(col), rowMap.get(metadata.getColumnName(col)).map(_.toString).getOrElse("NULL"))
+        }
+      }.list.apply
       val header = rows.headOption.map { firstRow =>
         firstRow.map(_._1)
       }.getOrElse(Seq("EMPTY RESULT"))
@@ -34,6 +40,7 @@ package object scalikejdbc extends com.typesafe.scalalogging.slf4j.LazyLogging {
       }.toArray
 
       println(com.jakewharton.fliptables.FlipTable.of(header.toArray,rowsArray))
+      println("%d rows.".format(rowsArray.length))
     }
     catch {
       case e:java.sql.SQLException => logger.error("SQLException code:%d".format(e.getErrorCode))
