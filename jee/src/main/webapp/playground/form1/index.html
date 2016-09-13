@@ -1,6 +1,7 @@
 <html>
 <head>
   <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular-resource.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/2.0.0/ui-bootstrap-tpls.js"></script>
@@ -11,8 +12,28 @@
     .controller("FormController", ["$window", "$resource", "Upload", function($window, $resource, Upload) {
       var withFiles = $resource("/playground/form/withFiles");
       var self = this;
-      this.values = {"氏名":"山田太郎"};
+      this.values = {
+        "氏名":"山田太郎",
+        "メールアドレス":"yamada@example.com",
+        "生年月日 年":1976,
+        "生年月日 月":"9",
+        "生年月日 日":"15",
+        "メールマガジン購読":"する"
+      };
+
+      this.showErrors = false;
+
       this.submit = function(redirectTo) {
+        console.log(self.form.$valid);
+        if (self.form.$invalid) { // フォームがvalidでなければエラーを出して戻る
+          this.showErrors = true;
+          angular.element("[name='c.form']").find('.ng-invalid:visible:first').focus(); // http://stackoverflow.com/questions/20365121/set-focus-on-first-invalid-input-in-angularjs-form
+          return;
+        }
+        // 生年月日が余すことなく入力されていたら、それを YYYY-MM-DD形式に変換する
+        if (self.values["生年月日 年"] && self.values["生年月日 月"] && self.values["生年月日 日"]) {
+          self.values["生年月日"] = "" + self.values["生年月日 年"] + "-" + ("0" + self.values["生年月日 月"]).slice(-2) + "-" + ("0" + self.values["生年月日 日"]).slice(-2);
+        }
         Upload.upload({
           url: "/playground/form/withFiles",
           data: self.values
@@ -26,6 +47,55 @@
         });
       };
     }])
+    .directive("match", ["$parse", function($parse) {
+      return {
+        require: 'ngModel',
+        link: function(scope, elem, attrs, ctrl) {
+          scope.$watch(function() {
+            var target = $parse(attrs.match)(scope);  // 比較対象となるモデルの値
+            return !ctrl.$modelValue || target === ctrl.$modelValue;
+          }, function(currentValue) {
+            ctrl.$setValidity('mismatch', currentValue);
+          });
+        }
+      }
+    }])
+    .directive('vcAscii', function() {
+      var toAsciiCase = function(text) {
+    		var i, charCode, charArray = [];
+    		for(i=text.length-1;0<=i;i--) {
+    			charCode = charArray[i] = text.charCodeAt(i);
+    			switch(true) {
+    				case (charCode <= 0xff5e && 0xff01 <= charCode):
+    					charArray[i] -= 0xfee0;
+    					break;
+    				case (charCode == 0x3000):
+    					charArray[i] = 0x0020;
+    					break;
+    				case (charCode == 0x30FC):
+    					charArray[i] = 0x002D;
+    					break;
+    			}
+    		}
+    		return String.fromCharCode.apply(null, charArray);
+    	};
+      return {
+        require: 'ngModel',
+        link: function(scope, element, attrs, modelCtrl) {
+          var ascii = function(inputValue) {
+            if (inputValue == undefined) inputValue = '';
+            var asciized = toAsciiCase(inputValue);
+            if (asciized !== inputValue) {
+              modelCtrl.$setViewValue(asciized);
+              modelCtrl.$render();
+            }
+            return asciized;
+          }
+          modelCtrl.$parsers.push(ascii);
+          ascii(scope[attrs.ngModel]);
+        }
+      };
+    })
     .run(["$rootScope",  function($scope) {
     }]);
     angular.element(document).ready(function() {
@@ -38,106 +108,137 @@
   <div class="container" id="top">
     <h1>フォーム1</h1>
     <p>確認画面なし、ファイルアップロード有り</p>
-    <div class="FormArea" ng-controller="FormController as c" ng-init="c.values['メールマガジン購読']='する'">
-      <form name="form" ng-submit="c.submit('./thanks.html')">
-        <div class="FormTitle">氏名 <span class="required">*</span></div>
-        <div class="FormData">
-          <input type="text" name="氏名" value="" placeholder="例：山田太郎" ng-model="c.values['氏名']" required/>
-        <!-- / .FormData --></div>
-        <div class="FormTitle">メールアドレス <span class="required">*</span></div>
-        <div class="FormData">
-          <input type="email" name="メールアドレス" value="" placeholder="例：suzuki@example.com" ng-model="c.values['メールアドレス']" required/>
-        <!-- / .FormData --></div>
+    <div class="panel panel-default" ng-controller="FormController as c">
+      <div class="panel-heading">フォームです</div>
+      <div class="panel-body">
+        <form class="form-horizontal" name="c.form" ng-submit="c.submit('./thanks.html')" ng-model-options="{updateOn:'blur'}">
+          <div class="form-group" ng-class="{'has-error':c.showErrors && c.form['氏名'].$invalid}">
+            <label class="control-label col-xs-2">氏名 <span class="required">*</span></label>
+            <div class="col-xs-5">
+              <input class="form-control" type="text" name="氏名" value="" placeholder="例：山田太郎" ng-model="c.values['氏名']" required/>
+              <span class="text-danger" ng-show="c.showErrors && c.form['氏名'].$error.required">入力必須項目です</span>
+            </div>
+          </div>
 
-        <div class="FormTitle">メールアドレス（確認用） <span class="required">*</span></div>
-        <div class="FormData">
-          <input type="text" name="メールアドレス（確認用）" value="" ng-model="c.emailConfirm" placeholder="例：suzuki@example.com" required/>
-        <!-- / .FormData --></div>
-        <div class="FormTitle">生年月日 <span class="required">*</span></div>
-        <div class="FormData -short">
-          <div class="DateY"><input type="number" class="" name="生年月日 年" value="" ng-model="c.values['生年月日 年']" placeholder="西暦" required/> 年</div>
-          <br class="sp" />
-          <div class="PulldownSelect">
-            <select name="生年月日 月" id="Date_Month" class="birthday" ng-model="c.values['生年月日 月']" required>
-              <option value="" selected>&nbsp;</option>
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-              <option value="5">5</option>
-              <option value="6">6</option>
-              <option value="7">7</option>
-              <option value="8">8</option>
-              <option value="9">9</option>
-              <option value="10">10</option>
-              <option value="11">11</option>
-              <option value="12">12</option>
-            </select>
-          <!-- / .PulldownSelect --></div> 月
+          <div class="form-group" ng-class="{'has-error':c.showErrors && c.form['メールアドレス'].$invalid}">
+            <label class="control-label col-xs-2">メールアドレス <span class="required">*</span></label>
+            <div class="col-xs-5">
+              <input class="form-control" type="email" name="メールアドレス" value="" placeholder="例：suzuki@example.com" ng-model="c.values['メールアドレス']"  autocomplete="off" vc-ascii required/>
+              <span class="text-danger" ng-show="c.showErrors && c.form['メールアドレス'].$error.required">入力必須項目です</span>
+              <span class="text-danger" ng-show="c.showErrors && c.form['メールアドレス'].$error.email">正しいメールアドレスを入力して下さい</span>
+            </div>
+          </div>
 
-          <div class="PulldownSelect">
-            <select name="生年月日 日" id="Date_Day" class="birthday" ng-model="c.values['生年月日 日']" required>
-              <option value="" selected>&nbsp;</option>
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-              <option value="5">5</option>
-              <option value="6">6</option>
-              <option value="7">7</option>
-              <option value="8">8</option>
-              <option value="9">9</option>
-              <option value="10">10</option>
-              <option value="11">11</option>
-              <option value="12">12</option>
-              <option value="13">13</option>
-              <option value="14">14</option>
-              <option value="15">15</option>
-              <option value="16">16</option>
-              <option value="17">17</option>
-              <option value="18">18</option>
-              <option value="19">19</option>
-              <option value="20">20</option>
-              <option value="21">21</option>
-              <option value="22">22</option>
-              <option value="23">23</option>
-              <option value="24">24</option>
-              <option value="25">25</option>
-              <option value="26">26</option>
-              <option value="27">27</option>
-              <option value="28">28</option>
-              <option value="29">29</option>
-              <option value="30">30</option>
-              <option value="31">31</option>
-            </select>
-          <!-- / .PulldownSelect --></div> 日
-        <!-- / .FormData --></div>
-        <div class="FormTitle">性別 <span class="required">*</span></div>
-        <div class="FormData">
-          <label class="Radio"><input type="radio" name="性別" value="男性" ng-model="c.values['性別']" required /><span class="RadioText">男性</span></label>
-          <label class="Radio"><input type="radio" name="性別" value="女性" ng-model="c.values['性別']" required /><span class="RadioText">女性</span></label>
-        <!-- / .FormData --></div>
-        <div class="FormTitle">メールマガジン購読</div>
-        <div class="FormData">
-          <label class="Checkbox"><input type="checkbox" name="メールマガジン購読" value="" ng-true-value="'する'" ng-false-value="'しない'" ng-model="c.values['メールマガジン購読']"/><span class="CheckboxText">購読する</span></label>
-        <!-- / .FormData --></div>
-        <div class="FormTitle">書類1 <span class="required">*</span></div>
-        <div class="FormData">
-          <span class="File"><input type="file" ngf-select ng-model="c.values['書類1']" name="書類1" accept="application/pdf, application/msword, application/msexcel, application/mspowerpoint" required /></span>
-        <!-- / .FormData --></div>
+          <div class="form-group" ng-class="{'has-error':c.showErrors && c.form['メールアドレス（確認用）'].$invalid}">
+            <label class="control-label col-xs-2">メールアドレス（確認用） <span class="required">*</span></label>
+            <div class="col-xs-5">
+              <input class="form-control" type="text" name="メールアドレス（確認用）" value="" ng-model="emailConfirm" placeholder="例：suzuki@example.com" match="c.values['メールアドレス']" autocomplete="off" vc-ascii required/>
+              <span class="text-danger" ng-show="c.showErrors && c.form['メールアドレス（確認用）'].$error.required">入力必須項目です</span>
+              <span class="text-danger" ng-show="c.showErrors && c.form['メールアドレス（確認用）'].$error.mismatch">メールアドレスが一致していません</span>
+            </div>
+          </div>
 
-        <div class="FormTitle">書類2</div>
-        <div class="FormData">
-          <span class="File"><input type="file" name="書類2" accept="application/pdf, application/msword, application/msexcel, application/mspowerpoint" /></span>
-        <!-- / .FormData --></div>
+          <div class="form-group" ng-class="{'has-error':c.showErrors && (c.form['生年月日 年'].$invalid || c.form['生年月日 月'].$invalid || c.form['生年月日 日'].$invalid)}">
+            <label class="control-label col-xs-2">生年月日 <span class="required">*</span></label>
+            <div class="col-xs-5">
+              <input type="number" class="" name="生年月日 年" value="" ng-model="c.values['生年月日 年']" placeholder="西暦" min="1900" max="2100" required/> 年
+              <select name="生年月日 月" id="Date_Month" class="birthday" ng-model="c.values['生年月日 月']" required>
+                <option value="" selected>&nbsp;</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+                <option value="11">11</option>
+                <option value="12">12</option>
+              </select> 月
 
-        <div class="FormData">
-          <label class="Checkbox"><input type="checkbox" name="" value="" ng-model="acceptTerms"/><span class="CheckboxText">規約に同意する</span></label>
-        <!-- / .FormData --></div>
+              <select name="生年月日 日" id="Date_Day" class="birthday" ng-model="c.values['生年月日 日']" required>
+                <option value="" selected>&nbsp;</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+                <option value="11">11</option>
+                <option value="12">12</option>
+                <option value="13">13</option>
+                <option value="14">14</option>
+                <option value="15">15</option>
+                <option value="16">16</option>
+                <option value="17">17</option>
+                <option value="18">18</option>
+                <option value="19">19</option>
+                <option value="20">20</option>
+                <option value="21">21</option>
+                <option value="22">22</option>
+                <option value="23">23</option>
+                <option value="24">24</option>
+                <option value="25">25</option>
+                <option value="26">26</option>
+                <option value="27">27</option>
+                <option value="28">28</option>
+                <option value="29">29</option>
+                <option value="30">30</option>
+                <option value="31">31</option>
+              </select> 日
+            </div>
+          </div>
 
-        <p class="Btn -submit"><input type="submit" class="Btn__link" value="送信" ng-disabled="!acceptTerms"></p>
-      </form>
-    </div><!-- /formarea-->
+          <div class="form-group" ng-class="{'has-error':c.showErrors && c.form['性別'].$invalid}">
+            <label class="control-label col-xs-2">性別 <span class="required">*</span></label>
+            <div class="col-xs-5">
+              <div class="radio-inline"><label class="Radio"><input type="radio" name="性別" value="男性" ng-model="c.values['性別']" required /><span class="RadioText">男性</span></label></div>
+              <div class="radio-inline"><label class="Radio"><input type="radio" name="性別" value="女性" ng-model="c.values['性別']" required /><span class="RadioText">女性</span></label></div>
+              <span class="text-danger" ng-show="c.showErrors && c.form['性別'].$error.required">選択必須項目です</span>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="control-label col-xs-2">メールマガジン購読</label>
+            <div class="col-xs-5 checkbox">
+              <label class="Checkbox"><input type="checkbox" name="メールマガジン購読" value="" ng-true-value="'する'" ng-false-value="'しない'" ng-model="c.values['メールマガジン購読']"/><span class="CheckboxText">購読する</span></label>
+            </div>
+          </div>
+
+          <div class="form-group" ng-class="{'has-error':c.showErrors && c.form['書類1'].$invalid}">
+            <label class="control-label col-xs-2">書類1 <span class="required">*</span></label>
+            <div class="col-xs-5">
+              <span class="File"><input type="file" ngf-select ng-model="c.values['書類1']" name="書類1" accept="application/pdf, application/msword, application/msexcel, application/mspowerpoint" required /></span>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="control-label col-xs-2">書類2</label>
+            <div class="col-xs-5">
+              <span class="File"><input type="file" name="書類2" accept="application/pdf, application/msword, application/msexcel, application/mspowerpoint" /></span>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="col-xs-offset-2 col-xs-5 checkbox">
+              <label class="Checkbox"><input type="checkbox" name="" value="" ng-model="acceptTerms"/><span class="CheckboxText">規約に同意する</span></label>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="col-xs-offset-2 col-xs-5">
+              <input type="submit" class="btn btn-primary" value="送信" ng-disabled="!acceptTerms">
+            </div>
+          </div>
+        </form>
+      </div><!-- /panel-body-->
+    </div><!-- /panel-->
   </div>
 </body>
 </html>
