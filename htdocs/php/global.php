@@ -1,7 +1,9 @@
 <?php
 // コンフィグの読み込み
-define("CONFIG_PHP", dirname(__FILE__) . "/php/config.php");
+define("CONFIG_PHP", dirname(__FILE__) . "/config.php");
+define("CONFIG_DEFAULT_PHP", dirname(__FILE__) . "/config_default.php");
 if (file_exists(CONFIG_PHP)) { require_once(CONFIG_PHP); }
+else if (file_exists(CONFIG_DEFAULT_PHP)) {require_once(CONFIG_DEFAULT_PHP);}
 
 ///////////////////////////////////////////////////////////////////////////
 // HTTPのエラーステータスを例外で表現するためのクラス
