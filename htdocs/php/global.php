@@ -15,13 +15,13 @@ function exception_handler($exception) {
     // HTTPエラーステータスの場合
     if ($exception instanceof HttpErrorStatus) {
         $message = sprintf("%d %s", $exception->getCode(), $exception->getMessage());
-        header(sprintf("HTTP/1.1 %s", $message));
+        if (php_sapi_name() != "cli") header(sprintf("HTTP/1.1 %s", $message));
         echo $message;
         exit;
     }
     // その他の例外の場合は500エラーを返す TODO: XHRの場合はJSONでレスポンスする
     debug_log($exception);
-    header("HTTP/1.1 500 Internal Server Error");
+    if (php_sapi_name() != "cli") header("HTTP/1.1 500 Internal Server Error");
     echo "<html><body><h1>500 Internal Server Error</h1>";
     echo $exception->getMessage();
     echo "<pre>";
