@@ -41,6 +41,7 @@ package object movabletype extends _root_.scalikejdbc.SQLInterpolation {
         case "image" => row.stringOpt(12).getOrElse("")
         case "select" => row.stringOpt(5).getOrElse("")
         case "text" => row.stringOpt(5).getOrElse("")
+        case "radio" => row.stringOpt(5).getOrElse("")
         case "textarea" => row.stringOpt(12).getOrElse("")
       }
       // vchar, vdatetime, vintegfer, vfloat, vblob, vclob) =
@@ -56,6 +57,7 @@ package object movabletype extends _root_.scalikejdbc.SQLInterpolation {
         case "image" => row.stringOpt(12).getOrElse("")
         case "select" => row.stringOpt(5).getOrElse("")
         case "text" => row.stringOpt(5).getOrElse("")
+        case "radio" => row.stringOpt(5).getOrElse("")
         case "textarea" => row.stringOpt(12).getOrElse("")
       }
       // vchar, vdatetime, vintegfer, vfloat, vblob, vclob) =
