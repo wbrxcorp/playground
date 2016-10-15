@@ -77,7 +77,7 @@ package object crawler extends SQLInterpolation with com.typesafe.scalalogging.s
   def getPage(url:String, options:Options=Options())(implicit session:DBSession, httpClient:CloseableHttpClient):Either[Int, org.jsoup.nodes.Document] = {
     fetchURLFromCache(url, options.cacheTTL).orElse {
       fetchURL(url, options).right.map(Some(_)) match { // todo: mapを使ったもっとましな方法にできるはず
-        case Right(x) => Some(x)
+        case Right(x) => Some(x)  // TODO: save cache here
         case Left(code) => return Left(code)
       }
     }.map { case (canonicalURL:String, content:String) =>
