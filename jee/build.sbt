@@ -12,7 +12,7 @@ buildProperties := {
 
 name := Option(buildProperties.value.getProperty("name")).getOrElse("playground")
 scalaVersion := Option(buildProperties.value.getProperty("scalaVersion")).getOrElse("2.11.8")
-version := Option(buildProperties.value.getProperty("version")).getOrElse("0.20160904")
+version := Option(buildProperties.value.getProperty("version")).getOrElse("0.20161016")
 scalacOptions ++= Seq("-feature", "-deprecation")
 mainClass in (Compile, run) := Some("WebAndSQLMain")
 javaSource in Compile := scala.util.Try(java.lang.Runtime.getRuntime.exec("javac").waitFor).map(x=>baseDirectory.value / "src" / "main" / "java").getOrElse(file("DOES/NOT/EXIST"))
@@ -28,7 +28,7 @@ libraryDependencies += "org.apache.httpcomponents" % "httpclient" % "4.5.2" // h
 libraryDependencies += "org.flywaydb" % "flyway-core" % "4.0.3" // http://mvnrepository.com/artifact/org.flywaydb/flyway-core
 libraryDependencies += "com.h2database" % "h2" % "1.4.192" // http://mvnrepository.com/artifact/com.h2database/h2
 libraryDependencies += "commons-io" % "commons-io" % "2.5" // http://mvnrepository.com/artifact/commons-io/commons-io
-libraryDependencies += "mysql" % "mysql-connector-java" % "6.0.3" // http://mvnrepository.com/artifact/mysql/mysql-connector-java
+libraryDependencies += "mysql" % "mysql-connector-java" % "6.0.4" // http://mvnrepository.com/artifact/mysql/mysql-connector-java
 libraryDependencies += "joda-time" % "joda-time" % "2.9.4"  // http://mvnrepository.com/artifact/joda-time/joda-time
 libraryDependencies += "ch.qos.logback" % "logback-classic" % "1.1.7" // http://mvnrepository.com/artifact/ch.qos.logback/logback-classic
 libraryDependencies += "com.typesafe.scala-logging" % "scala-logging-slf4j_2.11" % "2.1.2" // http://mvnrepository.com/artifact/com.typesafe.scala-logging/scala-logging-slf4j_2.11
@@ -38,16 +38,15 @@ libraryDependencies += "com.mashape.unirest" % "unirest-java" % "1.4.9" // http:
 libraryDependencies += "com.opencsv" % "opencsv" % "3.8" // http://mvnrepository.com/artifact/com.opencsv/opencsv
 libraryDependencies += "org.apache.velocity" % "velocity" % "1.7"  // http://mvnrepository.com/artifact/org.apache.velocity/velocity
 libraryDependencies += "org.pegdown" % "pegdown" % "1.6.0" // http://mvnrepository.com/artifact/org.pegdown/pegdown
-libraryDependencies += "org.eclipse.jgit" % "org.eclipse.jgit" % "4.4.1.201607150455-r" // http://mvnrepository.com/artifact/org.eclipse.jgit/org.eclipse.jgit
-libraryDependencies += "org.jsoup" % "jsoup" % "1.9.2" // http://mvnrepository.com/artifact/org.jsoup/jsoup
+libraryDependencies += "org.eclipse.jgit" % "org.eclipse.jgit" % "4.5.0.201609210915-r" // http://mvnrepository.com/artifact/org.eclipse.jgit/org.eclipse.jgit
 libraryDependencies += "com.yahoo.platform.yui" % "yuicompressor" % "2.4.8" // http://mvnrepository.com/artifact/com.yahoo.platform.yui/yuicompressor
 libraryDependencies += "com.jakewharton.fliptables" % "fliptables" % "1.0.2" // https://mvnrepository.com/artifact/com.jakewharton.fliptables/fliptables
-libraryDependencies += "com.typesafe" % "config" % "1.3.0" // http://mvnrepository.com/artifact/com.typesafe/config
+libraryDependencies += "com.typesafe" % "config" % "1.3.1" // http://mvnrepository.com/artifact/com.typesafe/config
 libraryDependencies += "org.develnext.jphp" % "jphp-core" % "0.8.0" // https://github.com/jphp-compiler/jphp
 libraryDependencies += "com.lihaoyi" % "pprint_2.11" % "0.4.2" // http://mvnrepository.com/artifact/com.lihaoyi/pprint_2.11
 
 libraryDependencies ++= Seq(
-  "scalikejdbc_2.11","scalikejdbc-syntax-support-macro_2.11"
+  "scalikejdbc_2.11","scalikejdbc-syntax-support-macro_2.11" // http://mvnrepository.com/artifact/org.scalikejdbc/scalikejdbc_2.11
 ).map("org.scalikejdbc" % _ % "2.4.2")
 
 libraryDependencies ++= Seq(
@@ -56,11 +55,11 @@ libraryDependencies ++= Seq(
 
 libraryDependencies ++= Seq(
   "json4s-jackson_2.11", "json4s-ext_2.11"
-).map("org.json4s" % _ % "3.4.0") // http://mvnrepository.com/artifact/org.json4s/json4s-jackson_2.11
+).map("org.json4s" % _ % "3.4.1") // http://mvnrepository.com/artifact/org.json4s/json4s-jackson_2.11
 
 libraryDependencies ++= Seq(
   "poi", "poi-ooxml"
-).map("org.apache.poi" % _ % "3.14")  // http://mvnrepository.com/artifact/org.apache.poi/poi
+).map("org.apache.poi" % _ % "3.15")  // http://mvnrepository.com/artifact/org.apache.poi/poi
 
 libraryDependencies ++= Seq(
   "jetty-webapp","jetty-plus","jetty-annotations","jetty-servlets"
@@ -72,12 +71,12 @@ libraryDependencies ++= Seq(
 ).map("io.apigee.trireme" % _ % "0.8.9")
 
 libraryDependencies += "com.novocode" % "junit-interface" % "0.11" % Test // http://mvnrepository.com/artifact/com.novocode/junit-interface
-libraryDependencies += "org.scalatest" % "scalatest_2.11" % "2.2.6" % Test // http://mvnrepository.com/artifact/org.scalatest/scalatest_2.11
+libraryDependencies += "org.scalatest" % "scalatest_2.11" % "3.0.0" % Test // http://mvnrepository.com/artifact/org.scalatest/scalatest_2.11
 
 libraryDependencies ++= Seq(
   "selenium-support", // http://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-support
   "selenium-chrome-driver"  // http://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-chrome-driver
-).map("org.seleniumhq.selenium" % _ % "2.53.1" % Test)
+).map("org.seleniumhq.selenium" % _ % "3.0.0" % Test)
 
 val e2etest = taskKey[Unit]("Execute e2e.[projectname].* tests")
 e2etest := (Def.taskDyn {
@@ -102,6 +101,6 @@ assemblyMergeStrategy in assembly := {
 mainClass in assembly := Some("ConsoleMain")
 test in assembly := {}
 
-initialCommands in console := "if (modules.console.isRunFromSBT) modules.config.loadConfig(\"standalone\");" + (((new File(".") / "src/main/scala/modules") * "*" * "package.scala"):PathFinder).get.map("import modules." + _.getParentFile.getName + "._").mkString(";") + ";initDefaultDatabase;migrateDefaultDatabaseIfNecessary;import scalikejdbc._"
+initialCommands in console := "if (modules.console.isRunFromSBT) modules.config.loadConfig(Option(System.getProperty(\"profile\")).getOrElse(\"standalone\"));" + (((new File(".") / "src/main/scala/modules") * "*" * "package.scala"):PathFinder).get.map("import modules." + _.getParentFile.getName + "._").mkString(";") + ";initDefaultDatabase;migrateDefaultDatabaseIfNecessary;import scalikejdbc._"
 
 buildInfoKeys := Seq[BuildInfoKey](name, version, scalaVersion, sbtVersion,initialCommands in console) //buildInfoPackage := "buildinfo"
