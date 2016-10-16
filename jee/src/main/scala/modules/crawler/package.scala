@@ -60,28 +60,46 @@ package object crawler extends SQLInterpolation with com.typesafe.scalalogging.s
     }
   }
 
-  private def fetchURLFromCache(url:String, ttl:Int = -1)(implicit session:DBSession):Option[(String/*actualURL*/,String/*content*/)] = {
+  private def fetchURLFromCacheById(urlId:String, ttl:Int = -1)(implicit session:DBSession):Option[(String/*actualURL*/,String/*content*/)] = {
     if (ttl == 0) return None // TTL=0はキャッシュ無効の合図
     val ttlCondition = if (ttl > 0) sqls"and created_at >= TIMESTAMPADD(SECOND,${-ttl},now())" else sqls"" /*TTLが負の数ならキャッシュは無期限*/
-    sql"select url,canonical_url_id,content from urls where id=${sha1(url)} ${ttlCondition}".map { row =>
+    sql"select url,canonical_url_id,content from urls where id=${urlId} ${ttlCondition}".map { row =>
       (row.string(1), row.stringOpt(2), row.stringOpt(3))
     }.single.apply.flatMap { case (url, canonicalURLId, content) =>
       (canonicalURLId, content) match {
-        case (Some(canonicalURLId), None) => fetchURLFromCache(url, ttl)
+        case (Some(canonicalURLId), None) => fetchURLFromCacheById(canonicalURLId, ttl)
         case (None, Some(content)) => Some((url, content))
         case _ => None
       }
     }
   }
 
+  private def fetchURLFromCache(url:String, ttl:Int = -1)(implicit session:DBSession):Option[(String/*actualURL*/,String/*content*/)] = {
+    fetchURLFromCacheById(sha1(url))
+  }
+
   def getPage(url:String, options:Options=Options())(implicit session:DBSession, httpClient:CloseableHttpClient):Either[Int, org.jsoup.nodes.Document] = {
     fetchURLFromCache(url, options.cacheTTL).orElse {
-      fetchURL(url, options).right.map(Some(_)) match { // todo: mapを使ったもっとましな方法にできるはず
-        case Right(x) => Some(x)  // TODO: save cache here
+      fetchURL(url, options) match { // todo: mapを使ったもっとましな方法にできるはず
+        case Right((canonicalURL, content)) =>
+          val createdAt = new org.joda.time.LocalDateTime
+          if (canonicalURL != url) {
+            sql"replace into urls(id,url,canonical_url_id,created_at) values(${sha1(url)},${url},${sha1(canonicalURL)},${createdAt})".update.apply
+          }
+          sql"replace into urls(id,url,content,created_at) values(${sha1(canonicalURL)}, ${canonicalURL}, ${content},${createdAt})".update.apply
+          Some((canonicalURL, content))
         case Left(code) => return Left(code)
       }
     }.map { case (canonicalURL:String, content:String) =>
       Right(Jsoup.parse(content, canonicalURL))
     }.getOrElse(Left(404))
+  }
+
+  def withHttpClient[T](f:CloseableHttpClient=>T):T = {
+    val requestConfig = org.apache.http.client.config.RequestConfig.custom.setConnectTimeout(30*1000).setSocketTimeout(30*1000).build
+    using(org.apache.http.impl.client.HttpClients.custom.setDefaultRequestConfig(requestConfig).setUserAgent(userAgent).build) { httpClient =>
+      f(httpClient)
+    }
+
   }
 }
