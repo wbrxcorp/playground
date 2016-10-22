@@ -12,7 +12,7 @@ buildProperties := {
 
 name := Option(buildProperties.value.getProperty("name")).getOrElse("playground")
 scalaVersion := Option(buildProperties.value.getProperty("scalaVersion")).getOrElse("2.11.8")
-version := Option(buildProperties.value.getProperty("version")).getOrElse("0.20161016")
+version := Option(buildProperties.value.getProperty("version")).getOrElse("0.20161022")
 scalacOptions ++= Seq("-feature", "-deprecation")
 mainClass in (Compile, run) := Some("WebAndSQLMain")
 javaSource in Compile := scala.util.Try(java.lang.Runtime.getRuntime.exec("javac").waitFor).map(x=>baseDirectory.value / "src" / "main" / "java").getOrElse(file("DOES/NOT/EXIST"))
@@ -22,13 +22,12 @@ javaSource in Compile := scala.util.Try(java.lang.Runtime.getRuntime.exec("javac
 parallelExecution in Test := false
 
 resolvers += "jitpack" at "https://jitpack.io"
+resolvers += "clojars" at "http://clojars.org/repo/"
 
 libraryDependencies += "org.scala-lang" % "scala-compiler" % "2.11.8" // http://mvnrepository.com/artifact/org.scala-lang/scala-compiler
 libraryDependencies += "org.apache.httpcomponents" % "httpclient" % "4.5.2" // http://mvnrepository.com/artifact/org.apache.httpcomponents/httpclient
 libraryDependencies += "org.flywaydb" % "flyway-core" % "4.0.3" // http://mvnrepository.com/artifact/org.flywaydb/flyway-core
-libraryDependencies += "com.h2database" % "h2" % "1.4.192" // http://mvnrepository.com/artifact/com.h2database/h2
 libraryDependencies += "commons-io" % "commons-io" % "2.5" // http://mvnrepository.com/artifact/commons-io/commons-io
-libraryDependencies += "mysql" % "mysql-connector-java" % "6.0.4" // http://mvnrepository.com/artifact/mysql/mysql-connector-java
 libraryDependencies += "joda-time" % "joda-time" % "2.9.4"  // http://mvnrepository.com/artifact/joda-time/joda-time
 libraryDependencies += "ch.qos.logback" % "logback-classic" % "1.1.7" // http://mvnrepository.com/artifact/ch.qos.logback/logback-classic
 libraryDependencies += "com.typesafe.scala-logging" % "scala-logging-slf4j_2.11" % "2.1.2" // http://mvnrepository.com/artifact/com.typesafe.scala-logging/scala-logging-slf4j_2.11
@@ -44,6 +43,13 @@ libraryDependencies += "com.jakewharton.fliptables" % "fliptables" % "1.0.2" // 
 libraryDependencies += "com.typesafe" % "config" % "1.3.1" // http://mvnrepository.com/artifact/com.typesafe/config
 libraryDependencies += "org.develnext.jphp" % "jphp-core" % "0.8.0" // https://github.com/jphp-compiler/jphp
 libraryDependencies += "com.lihaoyi" % "pprint_2.11" % "0.4.2" // http://mvnrepository.com/artifact/com.lihaoyi/pprint_2.11
+
+// JDBC drivers
+libraryDependencies += "com.h2database" % "h2" % "1.4.192" // http://mvnrepository.com/artifact/com.h2database/h2
+libraryDependencies += "mysql" % "mysql-connector-java" % "6.0.4" // http://mvnrepository.com/artifact/mysql/mysql-connector-java
+libraryDependencies += "com.oracle" % "ojdbc6" % "12.1.0.1-atlassian-hosted" // http://mvnrepository.com/artifact/com.oracle/ojdbc6
+libraryDependencies += "com.microsoft" % "sqljdbc4" % "3.0"
+libraryDependencies += "org.postgresql" % "postgresql" % "9.4.1211.jre7"
 
 libraryDependencies ++= Seq(
   "scalikejdbc_2.11","scalikejdbc-syntax-support-macro_2.11" // http://mvnrepository.com/artifact/org.scalikejdbc/scalikejdbc_2.11
