@@ -12,7 +12,7 @@ buildProperties := {
 
 name := Option(buildProperties.value.getProperty("name")).getOrElse("playground")
 scalaVersion := Option(buildProperties.value.getProperty("scalaVersion")).getOrElse("2.11.8")
-version := Option(buildProperties.value.getProperty("version")).getOrElse("0.20161030")
+version := Option(buildProperties.value.getProperty("version")).getOrElse("0.20161031")
 scalacOptions ++= Seq("-feature", "-deprecation")
 mainClass in (Compile, run) := Some("WebAndSQLMain")
 javaSource in Compile := scala.util.Try(java.lang.Runtime.getRuntime.exec("javac").waitFor).map(x=>baseDirectory.value / "src" / "main" / "java").getOrElse(file("DOES/NOT/EXIST"))
@@ -44,6 +44,7 @@ libraryDependencies += "com.jakewharton.fliptables" % "fliptables" % "1.0.2" // 
 libraryDependencies += "com.typesafe" % "config" % "1.3.1" // http://mvnrepository.com/artifact/com.typesafe/config
 libraryDependencies += "org.develnext.jphp" % "jphp-core" % "0.8.0" // https://github.com/jphp-compiler/jphp
 libraryDependencies += "com.lihaoyi" % "pprint_2.11" % "0.4.2" // http://mvnrepository.com/artifact/com.lihaoyi/pprint_2.11
+libraryDependencies += "com.m3" % "curly-scala_2.11" % "0.5.6" // https://mvnrepository.com/artifact/com.m3/curly-scala_2.11
 
 // JDBC drivers
 libraryDependencies += "com.h2database" % "h2" % "1.4.192" // http://mvnrepository.com/artifact/com.h2database/h2
