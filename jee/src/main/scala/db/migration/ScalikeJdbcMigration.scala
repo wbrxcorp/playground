@@ -8,6 +8,7 @@ trait ScalikeJdbcMigration extends org.flywaydb.core.api.migration.jdbc.JdbcMigr
       override val connectionAttributes = scalikejdbc.DBConnectionAttributes()
       override val isReadOnly: Boolean = false
       override val conn = con
+      override val settings = scalikejdbc.SettingsProvider.default
     })
   }
 
