@@ -45,6 +45,7 @@ set_error_handler("exception_error_handler");
 // デバッグログ出力用関数
 function debug_log($value) {
   // PHPの組み込みWebサーバで実行されている時以外はデバッグログを出力しない
+  // (cliの時はテストと限らず、バッチ処理の場合もあるので)
   if (php_sapi_name() != "cli-server") return;
 
   $value_type = gettype($value);
