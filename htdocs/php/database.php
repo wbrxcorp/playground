@@ -46,13 +46,17 @@ function database_select_example($db) {
 }
 
 function database_select_one_to_many_example($db) {
-  $stmt = $db->prepare("select dept.id,dept.name,emp.id,emp.name,sal,birth_date,available,created_at,updated_at from dept,emp where dept.id=dept_id and available=true");
+  $stmt = $db->prepare("select dept.id,dept.name,emp.id,emp.name,sal,birth_date,available,created_at,updated_at from dept,emp where dept.id=dept_id and available=true order by dept.id desc,emp.id");
   $stmt->execute();
   $depts = array();
+  $deptMap = array(); // for one to many mapping
   while ($row = $stmt->fetch(PDO::FETCH_NUM)) {
     $deptId = intval($row[0]);
-    if (!isset($depts[$deptId])) $depts[$deptId] = array("id"=>$deptId,"name"=>$row[1],"emps"=>array());
-    $depts[$deptId]["emps"] []= array(
+    if (!isset($deptMap[$deptId])) {
+      $depts []= array("id"=>$deptId,"name"=>$row[1],"emps"=>array());
+      $deptMap[$deptId] = &$depts[count($depts) - 1];
+    }
+    $deptMap[$deptId]["emps"] []= array(
       "id"=>intval($row[2]),
       "dept_id"=>$deptId,
       "name"=>$row[3],
