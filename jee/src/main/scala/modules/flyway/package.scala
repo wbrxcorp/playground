@@ -1,6 +1,6 @@
 package modules
 
-package object flyway extends com.typesafe.scalalogging.slf4j.LazyLogging {
+package object flyway extends com.typesafe.scalalogging.LazyLogging {
   val defaultLocations = "db/migration"
 
   def migrate(url:String,username:String,password:String,locations:String=defaultLocations):Unit = {

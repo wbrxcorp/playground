@@ -4,7 +4,7 @@ import javax.servlet.http.{HttpServletRequest, HttpServletResponse}
 
 import org.apache.commons.io.IOUtils
 
-class FakePHPServlet extends javax.servlet.http.HttpServlet with com.typesafe.scalalogging.slf4j.LazyLogging {
+class FakePHPServlet extends javax.servlet.http.HttpServlet with com.typesafe.scalalogging.LazyLogging {
 
   private def resolveSessionVariable(request:HttpServletRequest, sessionVariableName:String):Option[AnyRef] = {
     Option(request.getSession.getAttribute(sessionVariableName))

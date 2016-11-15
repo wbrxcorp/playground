@@ -27,7 +27,7 @@ object ResultSerializer extends org.json4s.Serializer[Result] {
   }
 }
 
-trait JsonSupport extends org.scalatra.ScalatraServlet with org.scalatra.json.JacksonJsonSupport with com.typesafe.scalalogging.slf4j.LazyLogging {
+trait JsonSupport extends org.scalatra.ScalatraServlet with org.scalatra.json.JacksonJsonSupport with com.typesafe.scalalogging.LazyLogging {
   override protected implicit def jsonFormats: org.json4s.Formats = org.json4s.DefaultFormats.withBigDecimal ++ org.json4s.ext.JodaTimeSerializers.all + ResultSerializer
 
   def withJsonObject[T](obj:org.json4s.JValue)(f:JObject=>T):T = obj match {

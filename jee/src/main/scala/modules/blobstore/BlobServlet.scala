@@ -2,7 +2,7 @@ package modules.blobstore
 
 import javax.servlet.http.HttpServletResponse
 
-class BlobServlet extends javax.servlet.http.HttpServlet with com.typesafe.scalalogging.slf4j.LazyLogging {
+class BlobServlet extends javax.servlet.http.HttpServlet with com.typesafe.scalalogging.LazyLogging {
   val pattern = """^/(.+)\.(.+)$""".r
 
   override def doGet(request:javax.servlet.http.HttpServletRequest, response:HttpServletResponse):Unit = {
