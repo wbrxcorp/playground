@@ -7,7 +7,7 @@ import org.apache.http.client.methods.HttpGet
 import org.apache.commons.io.IOUtils
 import org.jsoup.Jsoup
 
-package object crawler extends SQLInterpolation with com.typesafe.scalalogging.slf4j.LazyLogging {
+package object crawler extends SQLInterpolation with com.typesafe.scalalogging.LazyLogging {
   import modules.common.using
   import modules.hash.sha1
   val userAgent = "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/48.0.2564.103 Safari/537.36"

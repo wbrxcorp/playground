@@ -1,6 +1,6 @@
 package modules
 
-package object scalikejdbc extends com.typesafe.scalalogging.slf4j.LazyLogging {
+package object scalikejdbc extends com.typesafe.scalalogging.LazyLogging {
   import _root_.scalikejdbc._
   val config = modules.config.get
   implicit val session = AutoSession

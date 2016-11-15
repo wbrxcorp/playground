@@ -1,6 +1,6 @@
 package modules.playground
 
-class ScalatraBootstrap extends org.scalatra.LifeCycle with com.typesafe.scalalogging.slf4j.LazyLogging {
+class ScalatraBootstrap extends org.scalatra.LifeCycle with com.typesafe.scalalogging.LazyLogging {
   override def init(context: javax.servlet.ServletContext):Unit = {
     import modules.image._
     val image = dummyImage(512, 384)

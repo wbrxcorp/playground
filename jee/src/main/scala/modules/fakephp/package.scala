@@ -1,6 +1,6 @@
 package modules
 
-package object fakephp extends com.typesafe.scalalogging.slf4j.LazyLogging {
+package object fakephp extends com.typesafe.scalalogging.LazyLogging {
   //val regex = """<!--\s*#include\s+virtual=["'](.*)["']\s*-->""".r
   val regex = """(?s)<\?php\s+if\s*\(\s*isset\(\$\_SESSION\[\"(.*?)\"\]\)\s*\)\s*\{\s*\?>(.*?)<\?php\s+\}\s+else\s+\{\s*\?>(.*?)<\?php\s+\}\s*\?>""".r
 

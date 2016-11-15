@@ -5,7 +5,7 @@ import javax.servlet.http.HttpServletResponse
 
 import modules.common.using
 
-class CompressFilter extends javax.servlet.Filter with com.typesafe.scalalogging.slf4j.LazyLogging {
+class CompressFilter extends javax.servlet.Filter with com.typesafe.scalalogging.LazyLogging {
   val charset:String = "UTF-8"
   private var context:javax.servlet.ServletContext = _
   private var compressorConfig:Config = Config()
