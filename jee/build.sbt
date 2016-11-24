@@ -12,7 +12,7 @@ buildProperties := {
 
 name := Option(buildProperties.value.getProperty("name")).getOrElse("playground")
 scalaVersion := Option(buildProperties.value.getProperty("scalaVersion")).getOrElse("2.12.0")
-version := Option(buildProperties.value.getProperty("version")).getOrElse("0.20161115")
+version := Option(buildProperties.value.getProperty("version")).getOrElse("0.20161121")
 scalacOptions ++= Seq("-feature", "-deprecation")
 mainClass in (Compile, run) := Some("WebAndSQLMain")
 javaSource in Compile := scala.util.Try(java.lang.Runtime.getRuntime.exec("javac").waitFor).map(x=>baseDirectory.value / "src" / "main" / "java").getOrElse(file("DOES/NOT/EXIST"))
@@ -60,7 +60,7 @@ libraryDependencies ++= Seq(
 
 libraryDependencies ++= Seq(
   "scalatra_2.12", "scalatra-json_2.12"
-).map("org.scalatra" % _ % "2.5.0-RC1") // http://mvnrepository.com/artifact/org.scalatra/scalatra_2.12
+).map("org.scalatra" % _ % "2.5.0") // http://mvnrepository.com/artifact/org.scalatra/scalatra_2.12
 
 libraryDependencies ++= Seq(
   "json4s-jackson_2.12", "json4s-ext_2.12"
@@ -80,7 +80,7 @@ libraryDependencies ++= Seq(
 ).map("io.apigee.trireme" % _ % "0.8.9")
 
 libraryDependencies += "com.novocode" % "junit-interface" % "0.11" % Test // http://mvnrepository.com/artifact/com.novocode/junit-interface
-libraryDependencies += "org.scalatest" % "scalatest_2.12" % "3.0.0" % Test // http://mvnrepository.com/artifact/org.scalatest/scalatest_2.12
+libraryDependencies += "org.scalatest" % "scalatest_2.12" % "3.0.1" % Test // http://mvnrepository.com/artifact/org.scalatest/scalatest_2.12
 
 libraryDependencies ++= Seq(
   "selenium-support", // http://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-support
