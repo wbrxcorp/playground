@@ -1,0 +1,33 @@
+<html>
+<head>
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular-resource.js"></script>
+  <script>
+    angular.module("MyApp", ["ngResource"])
+    .run(["$rootScope",  "$resource", function($scope, $resource) {
+      var delay = $resource("./delay/:millis");
+      $scope.showElement = false;
+      $scope.delayingOperation = function() {
+        delay.get({"millis":1000}, function(result) {
+          if (result.success) $scope.showElement = !$scope.showElement;
+        })
+      }
+    }]);
+    angular.element(document).ready(function() {
+      angular.bootstrap(document, ['MyApp']);
+    });
+  </script>
+</head>
+<body>
+  <div class="container">
+    <h1>delay</h1>
+    <label><input type="checkbox" name="checkme" ng-model="something" ng-change="delayingOperation()"> check me!</label>
+
+    <div ng-if="showElement">
+      <input type="text" name="findmeifyoucan" value="This element exists only when showElement is true">
+    </div>
+  </div>
+</body>
+</html>

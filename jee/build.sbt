@@ -12,7 +12,7 @@ buildProperties := {
 
 name := Option(buildProperties.value.getProperty("name")).getOrElse("playground")
 scalaVersion := Option(buildProperties.value.getProperty("scalaVersion")).getOrElse("2.11.8")
-version := Option(buildProperties.value.getProperty("version")).getOrElse("0.20161121")
+version := Option(buildProperties.value.getProperty("version")).getOrElse("0.20161202")
 scalacOptions ++= Seq("-feature", "-deprecation")
 mainClass in (Compile, run) := Some("WebAndSQLMain")
 javaSource in Compile := scala.util.Try(java.lang.Runtime.getRuntime.exec("javac").waitFor).map(x=>baseDirectory.value / "src" / "main" / "java").getOrElse(file("DOES/NOT/EXIST"))
@@ -60,11 +60,11 @@ libraryDependencies ++= Seq(
 
 libraryDependencies ++= Seq(
   "scalatra_2.11", "scalatra-json_2.11", "scalatra-scalatest_2.11"
-).map("org.scalatra" % _ % "2.4.1") // http://mvnrepository.com/artifact/org.scalatra/scalatra_2.11, http://central.maven.org/maven2/org/scalatra/scalatra_2.12/
+).map("org.scalatra" % _ % "2.5.0") // http://mvnrepository.com/artifact/org.scalatra/scalatra_2.11, http://central.maven.org/maven2/org/scalatra/scalatra_2.12/
 
 libraryDependencies ++= Seq(
   "json4s-jackson_2.11", "json4s-ext_2.11"
-).map("org.json4s" % _ % "3.4.2") // http://mvnrepository.com/artifact/org.json4s/json4s-jackson_2.11, http://central.maven.org/maven2/org/json4s/json4s-jackson_2.12/
+).map("org.json4s" % _ % "3.5.0") // http://mvnrepository.com/artifact/org.json4s/json4s-jackson_2.11, http://central.maven.org/maven2/org/json4s/json4s-jackson_2.12/
 
 libraryDependencies ++= Seq(
   "poi", "poi-ooxml"
