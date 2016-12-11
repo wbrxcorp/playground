@@ -26,7 +26,7 @@ resolvers += "clojars" at "http://clojars.org/repo/"
 resolvers += "atlassian-3rd-party" at "https://maven.atlassian.com/3rdparty/"
 resolvers += "alfresco-public" at "https://artifacts.alfresco.com/nexus/content/repositories/public"
 
-libraryDependencies += "org.scala-lang" % "scala-compiler" % "2.12.0" // http://mvnrepository.com/artifact/org.scala-lang/scala-compiler
+libraryDependencies += "org.scala-lang" % "scala-compiler" % "2.12.1" // http://mvnrepository.com/artifact/org.scala-lang/scala-compiler
 libraryDependencies += "org.apache.httpcomponents" % "httpclient" % "4.5.2" // http://mvnrepository.com/artifact/org.apache.httpcomponents/httpclient
 libraryDependencies += "org.flywaydb" % "flyway-core" % "4.0.3" // http://mvnrepository.com/artifact/org.flywaydb/flyway-core
 libraryDependencies += "commons-io" % "commons-io" % "2.5" // http://mvnrepository.com/artifact/commons-io/commons-io
