@@ -3,10 +3,10 @@ package modules.instagram
 // https://www.instagram.com/shimariso/media/
 
 package object instagram {
-  override protected implicit def jsonFormats: org.json4s.Formats = org.json4s.DefaultFormats
+  private implicit def jsonFormats: org.json4s.Formats = org.json4s.DefaultFormats
 
   def getTheLatestImages(username:String):Seq[Item] = {
-
+    Seq()
   }
 }
 
