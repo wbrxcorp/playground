@@ -23,7 +23,8 @@ package object instagram {
       (item \ "images" \ "low_resolution").extractOpt[Image],
       (item \ "images" \ "standard_resolution").extractOpt[Image],
       (item \ "images" \ "thumbnail").extractOpt[Image],
-      (item \ "caption" \ "text").extractOpt[String]
+      (item \ "caption" \ "text").extractOpt[String],
+      (item \ "link").extractOpt[String]
     )
   }
 }
