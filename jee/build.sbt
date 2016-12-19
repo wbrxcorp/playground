@@ -46,6 +46,7 @@ libraryDependencies += "com.typesafe" % "config" % "1.3.1" // http://mvnreposito
 libraryDependencies += "org.develnext.jphp" % "jphp-core" % "0.8.0" // https://github.com/jphp-compiler/jphp
 libraryDependencies += "com.lihaoyi" % "pprint_2.11" % "0.4.3" // http://mvnrepository.com/artifact/com.lihaoyi/pprint_2.11, http://central.maven.org/maven2/com/lihaoyi/pprint_2.12/
 libraryDependencies += "com.m3" % "curly-scala_2.11" % "0.5.6" // https://mvnrepository.com/artifact/com.m3/curly-scala_2.11, waiting for 2.12 support
+libraryDependencies += "com.github.nscala-time" % "nscala-time_2.11" % "2.14.0" // http://mvnrepository.com/artifact/com.github.nscala-time/nscala-time_2.11
 
 // JDBC drivers
 libraryDependencies += "com.h2database" % "h2" % "1.4.193" // http://mvnrepository.com/artifact/com.h2database/h2
@@ -110,6 +111,6 @@ assemblyMergeStrategy in assembly := {
 mainClass in assembly := Some("ConsoleMain")
 test in assembly := {}
 
-initialCommands in console := "if (modules.console.isRunFromSBT) modules.config.loadConfig(Option(System.getProperty(\"profile\")).getOrElse(\"standalone\"));" + (((new File(".") / "src/main/scala/modules") * "*" * "package.scala"):PathFinder).get.map("import modules." + _.getParentFile.getName + "._").mkString(";") + ";initDefaultDatabase;migrateDefaultDatabaseIfNecessary;import scalikejdbc._"
+initialCommands in console := "if (modules.console.isRunFromSBT) modules.config.loadConfig(Option(System.getProperty(\"profile\")).getOrElse(\"standalone\"));" + (((new File(".") / "src/main/scala/modules") * "*" * "package.scala"):PathFinder).get.map("import modules.`" + _.getParentFile.getName + "`._").mkString(";") + ";initDefaultDatabase;migrateDefaultDatabaseIfNecessary;import scalikejdbc._"
 
 buildInfoKeys := Seq[BuildInfoKey](name, version, scalaVersion, sbtVersion,initialCommands in console) //buildInfoPackage := "buildinfo"
