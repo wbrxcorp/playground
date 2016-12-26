@@ -1,2 +1,11 @@
 general:
   build_dir: jee
+
+machine:
+  java:
+    version: openjdk8
+
+test:
+  override:
+    - "sbt e2etest":
+        timeout: 14400
