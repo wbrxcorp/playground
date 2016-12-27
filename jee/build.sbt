@@ -12,7 +12,7 @@ buildProperties := {
 
 name := Option(buildProperties.value.getProperty("name")).getOrElse("playground")
 scalaVersion := Option(buildProperties.value.getProperty("scalaVersion")).getOrElse("2.11.8")
-version := Option(buildProperties.value.getProperty("version")).getOrElse("0.20161202")
+version := Option(buildProperties.value.getProperty("version")).getOrElse("0.20161227")
 scalacOptions ++= Seq("-feature", "-deprecation")
 mainClass in (Compile, run) := Some("WebAndSQLMain")
 javaSource in Compile := scala.util.Try(java.lang.Runtime.getRuntime.exec("javac").waitFor).map(x=>baseDirectory.value / "src" / "main" / "java").getOrElse(file("DOES/NOT/EXIST"))
@@ -47,6 +47,7 @@ libraryDependencies += "org.develnext.jphp" % "jphp-core" % "0.8.0" // https://g
 libraryDependencies += "com.lihaoyi" % "pprint_2.11" % "0.4.3" // http://mvnrepository.com/artifact/com.lihaoyi/pprint_2.11, http://central.maven.org/maven2/com/lihaoyi/pprint_2.12/
 libraryDependencies += "com.m3" % "curly-scala_2.11" % "0.5.6" // https://mvnrepository.com/artifact/com.m3/curly-scala_2.11, waiting for 2.12 support
 libraryDependencies += "com.github.nscala-time" % "nscala-time_2.11" % "2.14.0" // http://mvnrepository.com/artifact/com.github.nscala-time/nscala-time_2.11
+libraryDependencies += "net.lightbody.bmp" % "browsermob-core" % "2.1.2" // http://mvnrepository.com/artifact/net.lightbody.bmp/browsermob-core
 
 // JDBC drivers
 libraryDependencies += "com.h2database" % "h2" % "1.4.193" // http://mvnrepository.com/artifact/com.h2database/h2
