@@ -4,7 +4,7 @@ import org.openqa.selenium.support.ui.{WebDriverWait,ExpectedCondition}
 import org.openqa.selenium.WebDriver
 import org.openqa.selenium.JavascriptExecutor
 
-trait AngularSupport {
+trait AngularSupport extends org.scalatest.selenium.WebBrowser {
   // http://stackoverflow.com/questions/25062969/testing-angularjs-with-selenium
   val waitForAngularScript = """try {
   if (document.readyState !== 'complete') {
@@ -48,7 +48,9 @@ trait AngularSupport {
   return false;
 }"""
 
-  def waitForAngular(timeout:Long = 5L)(implicit webDriver:WebDriver):Boolean = {
+implicit def webDriver:WebDriver
+
+  def waitForAngular(timeout:Long = 5L):Boolean = {
     new WebDriverWait(webDriver, timeout, 100).until(new ExpectedCondition[Boolean]() {
       override def apply(webDriver:WebDriver):Boolean = {
         webDriver.asInstanceOf[JavascriptExecutor].executeScript(waitForAngularScript).asInstanceOf[Boolean]

@@ -9,6 +9,7 @@ trait E2ETest extends org.scalatest.FlatSpec with org.scalatest.selenium.WebBrow
   import net.lightbody.bmp.BrowserMobProxyServer
 
   implicit var webDriver: org.openqa.selenium.WebDriver = _
+
   var server:org.eclipse.jetty.server.Server = _
   var proxy:BrowserMobProxyServer = _
   var port:Int = _
@@ -27,6 +28,8 @@ trait E2ETest extends org.scalatest.FlatSpec with org.scalatest.selenium.WebBrow
   }
 
   override def beforeAll() = {
+    modules.config.loadConfig("standalone")
+
     // Webサーバの起動
     val (server, port) = modules.jetty.startServer
     this.server = server
@@ -42,7 +45,6 @@ trait E2ETest extends org.scalatest.FlatSpec with org.scalatest.selenium.WebBrow
     capabilities.setCapability(CapabilityType.PROXY, net.lightbody.bmp.client.ClientUtil.createSeleniumProxy(this.proxy));
 
     // WebDriverのセットアップ
-    modules.config.loadConfig("standalone")
     val driverPath = if (System.getProperty("os.name").startsWith("Windows")) {
       "bin/chromedriver.exe";
     } else {

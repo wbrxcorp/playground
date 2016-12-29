@@ -1,7 +1,7 @@
 package e2e.playground
 
 
-class DelayTest extends e2e.E2ETest with e2e.AngularSupport {
+class DelayTest extends e2e.E2ETest with e2e.AngularSupport with org.scalatest.selenium.WebBrowser {
 
   "hidden input" should "be found" in {
 
