@@ -8,7 +8,7 @@ trait E2ETest extends org.scalatest.FlatSpec with org.scalatest.selenium.WebBrow
   import org.openqa.selenium.remote.{DesiredCapabilities,CapabilityType}
   import net.lightbody.bmp.BrowserMobProxyServer
 
-  implicit var webDriver: org.openqa.selenium.WebDriver = _
+  implicit var webDriver: org.openqa.selenium.remote.RemoteWebDriver = _
 
   var server:org.eclipse.jetty.server.Server = _
   var proxy:BrowserMobProxyServer = _
@@ -39,6 +39,7 @@ trait E2ETest extends org.scalatest.FlatSpec with org.scalatest.selenium.WebBrow
     this.proxy = new BrowserMobProxyServer
     this.proxy.addRequestFilter(this)
     this.proxy.addResponseFilter(this)
+    this.setupProxy(this.proxy)
 
     proxy.start(0)
     val capabilities = new DesiredCapabilities
