@@ -45,7 +45,7 @@ trait AngularSupport extends org.scalatest.selenium.WebBrowser {
   }
   return true;
 } catch (ex) {
-  return false;
+  return null;
 }"""
 
 implicit def webDriver:WebDriver
@@ -53,7 +53,10 @@ implicit def webDriver:WebDriver
   def waitForAngular(timeout:Long = 5L):Boolean = {
     new WebDriverWait(webDriver, timeout, 100).until(new ExpectedCondition[Boolean]() {
       override def apply(webDriver:WebDriver):Boolean = {
-        webDriver.asInstanceOf[JavascriptExecutor].executeScript(waitForAngularScript).asInstanceOf[Boolean]
+        val rst = webDriver.asInstanceOf[JavascriptExecutor].executeScript(waitForAngularScript).asInstanceOf[java.lang.Boolean]
+        assert( rst != null, "waitForAngular() failed in %s. This may be because jQuery is not loaded prior to AngularJS.".format(webDriver.getCurrentUrl) )
+
+        rst
       }
     })
   }
