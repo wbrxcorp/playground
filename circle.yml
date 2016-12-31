@@ -7,5 +7,5 @@ machine:
 
 test:
   override:
-    - "sbt e2etest":
-        timeout: 14400
+    - "sbt e2etest"
+    - "sbt 'testOnly e2e.playground.DelayTest'"
