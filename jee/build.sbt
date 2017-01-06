@@ -12,7 +12,7 @@ buildProperties := {
 
 name := Option(buildProperties.value.getProperty("name")).getOrElse("playground")
 scalaVersion := Option(buildProperties.value.getProperty("scalaVersion")).getOrElse("2.11.8")
-version := Option(buildProperties.value.getProperty("version")).getOrElse("0.20161227")
+version := Option(buildProperties.value.getProperty("version")).getOrElse("0.20170116")
 scalacOptions ++= Seq("-feature", "-deprecation")
 mainClass in (Compile, run) := Some("WebAndSQLMain")
 javaSource in Compile := scala.util.Try(java.lang.Runtime.getRuntime.exec("javac").waitFor).map(x=>baseDirectory.value / "src" / "main" / "java").getOrElse(file("DOES/NOT/EXIST"))
@@ -30,31 +30,32 @@ libraryDependencies += "org.scala-lang" % "scala-compiler" % "2.11.8" // http://
 libraryDependencies += "org.apache.httpcomponents" % "httpclient" % "4.5.2" // http://mvnrepository.com/artifact/org.apache.httpcomponents/httpclient
 libraryDependencies += "org.flywaydb" % "flyway-core" % "4.0.3" // http://mvnrepository.com/artifact/org.flywaydb/flyway-core
 libraryDependencies += "commons-io" % "commons-io" % "2.5" // http://mvnrepository.com/artifact/commons-io/commons-io
-libraryDependencies += "joda-time" % "joda-time" % "2.9.5"  // http://mvnrepository.com/artifact/joda-time/joda-time
-libraryDependencies += "ch.qos.logback" % "logback-classic" % "1.1.7" // http://mvnrepository.com/artifact/ch.qos.logback/logback-classic
+libraryDependencies += "joda-time" % "joda-time" % "2.9.7"  // http://mvnrepository.com/artifact/joda-time/joda-time
+libraryDependencies += "ch.qos.logback" % "logback-classic" % "1.1.8" // http://mvnrepository.com/artifact/ch.qos.logback/logback-classic
 libraryDependencies += "com.typesafe.scala-logging" % "scala-logging-slf4j_2.11" % "2.1.2" // http://mvnrepository.com/artifact/com.typesafe.scala-logging/scala-logging-slf4j_2.11, http://mvnrepository.com/artifact/com.typesafe.scala-logging/scala-logging_2.12
-libraryDependencies += "org.slf4j" % "slf4j-jdk14" % "1.7.21" // for tomcat: https://mvnrepository.com/artifact/org.slf4j/slf4j-jdk14
-libraryDependencies += "org.jsoup" % "jsoup" % "1.10.1"  // http://mvnrepository.com/artifact/org.jsoup/jsoup
+libraryDependencies += "org.slf4j" % "slf4j-jdk14" % "1.7.22" // for tomcat: https://mvnrepository.com/artifact/org.slf4j/slf4j-jdk14
+libraryDependencies += "org.jsoup" % "jsoup" % "1.10.2"  // http://mvnrepository.com/artifact/org.jsoup/jsoup
 libraryDependencies += "com.mashape.unirest" % "unirest-java" % "1.4.9" // http://mvnrepository.com/artifact/com.mashape.unirest/unirest-java
 libraryDependencies += "com.opencsv" % "opencsv" % "3.8" // http://mvnrepository.com/artifact/com.opencsv/opencsv
 libraryDependencies += "org.apache.velocity" % "velocity" % "1.7"  // http://mvnrepository.com/artifact/org.apache.velocity/velocity
 libraryDependencies += "org.pegdown" % "pegdown" % "1.6.0" // http://mvnrepository.com/artifact/org.pegdown/pegdown
-libraryDependencies += "org.eclipse.jgit" % "org.eclipse.jgit" % "4.5.0.201609210915-r" // http://mvnrepository.com/artifact/org.eclipse.jgit/org.eclipse.jgit
+libraryDependencies += "org.eclipse.jgit" % "org.eclipse.jgit" % "4.6.0.201612231935-r" // http://mvnrepository.com/artifact/org.eclipse.jgit/org.eclipse.jgit
 libraryDependencies += "com.yahoo.platform.yui" % "yuicompressor" % "2.4.8-rhino-alfresco-patched" // http://mvnrepository.com/artifact/com.yahoo.platform.yui/yuicompressor
 libraryDependencies += "com.jakewharton.fliptables" % "fliptables" % "1.0.2" // https://mvnrepository.com/artifact/com.jakewharton.fliptables/fliptables
 libraryDependencies += "com.typesafe" % "config" % "1.3.1" // http://mvnrepository.com/artifact/com.typesafe/config
 libraryDependencies += "org.develnext.jphp" % "jphp-core" % "0.8.0" // https://github.com/jphp-compiler/jphp
-libraryDependencies += "com.lihaoyi" % "pprint_2.11" % "0.4.3" // http://mvnrepository.com/artifact/com.lihaoyi/pprint_2.11, http://central.maven.org/maven2/com/lihaoyi/pprint_2.12/
+libraryDependencies += "com.lihaoyi" % "pprint_2.11" % "0.4.4" // http://mvnrepository.com/artifact/com.lihaoyi/pprint_2.11, http://central.maven.org/maven2/com/lihaoyi/pprint_2.12/
 libraryDependencies += "com.m3" % "curly-scala_2.11" % "0.5.6" // https://mvnrepository.com/artifact/com.m3/curly-scala_2.11, waiting for 2.12 support
-libraryDependencies += "com.github.nscala-time" % "nscala-time_2.11" % "2.14.0" // http://mvnrepository.com/artifact/com.github.nscala-time/nscala-time_2.11
-libraryDependencies += "net.lightbody.bmp" % "browsermob-core" % "2.1.2" // http://mvnrepository.com/artifact/net.lightbody.bmp/browsermob-core
+libraryDependencies += "com.github.nscala-time" % "nscala-time_2.11" % "2.16.0" // http://mvnrepository.com/artifact/com.github.nscala-time/nscala-time_2.11
+libraryDependencies += "net.lightbody.bmp" % "browsermob-core" % "2.1.4" // http://mvnrepository.com/artifact/net.lightbody.bmp/browsermob-core
+libraryDependencies += "com.github.pathikrit" % "better-files_2.11" % "2.16.0" // http://mvnrepository.com/artifact/com.github.pathikrit/better-files_2.11
 
 // JDBC drivers
 libraryDependencies += "com.h2database" % "h2" % "1.4.193" // http://mvnrepository.com/artifact/com.h2database/h2
 libraryDependencies += "mysql" % "mysql-connector-java" % "6.0.5" // http://mvnrepository.com/artifact/mysql/mysql-connector-java
 libraryDependencies += "com.oracle" % "ojdbc6" % "12.1.0.1-atlassian-hosted" // http://mvnrepository.com/artifact/com.oracle/ojdbc6
-libraryDependencies += "com.microsoft" % "sqljdbc4" % "3.0"
-libraryDependencies += "org.postgresql" % "postgresql" % "9.4.1211.jre7"
+libraryDependencies += "com.microsoft.sqlserver" % "sqljdbc4" % "4.0" // http://mvnrepository.com/artifact/com.microsoft.sqlserver/sqljdbc4
+libraryDependencies += "org.postgresql" % "postgresql" % "9.4.1212.jre7"
 
 libraryDependencies ++= Seq(
   "scalikejdbc_2.11","scalikejdbc-syntax-support-macro_2.11" // http://mvnrepository.com/artifact/org.scalikejdbc/scalikejdbc_2.11, http://mvnrepository.com/artifact/org.scalikejdbc/scalikejdbc_2.12
@@ -74,7 +75,7 @@ libraryDependencies ++= Seq(
 
 libraryDependencies ++= Seq(
   "jetty-webapp","jetty-plus","jetty-annotations","jetty-servlets"
-).map("org.eclipse.jetty" % _ % "9.3.14.v20161028") // http://mvnrepository.com/artifact/org.eclipse.jetty/jetty-webapp
+).map("org.eclipse.jetty" % _ % "9.4.0.v20161208") // http://mvnrepository.com/artifact/org.eclipse.jetty/jetty-webapp
 
 libraryDependencies ++= Seq(
   "trireme-core", // https://mvnrepository.com/artifact/io.apigee.trireme/trireme-core
