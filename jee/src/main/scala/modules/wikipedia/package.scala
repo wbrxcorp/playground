@@ -7,7 +7,7 @@ import org.joda.time.DateTime
 import collection.JavaConversions._
 import modules.common.using
 
-package object wikipedia extends SQLInterpolation with com.typesafe.scalalogging.slf4j.LazyLogging {
+package object wikipedia extends SQLInterpolation with com.typesafe.scalalogging.LazyLogging {
   private def createWikipediaURL(pageName:String):String =
      "http://ja.wikipedia.org/wiki/%s".format(java.net.URLEncoder.encode(pageName, "UTF-8"))
 

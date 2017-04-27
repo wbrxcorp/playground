@@ -2,7 +2,7 @@ package modules.image
 
 import javax.servlet.http.HttpServletResponse
 
-class ResizeImageServlet extends javax.servlet.http.HttpServlet with com.typesafe.scalalogging.slf4j.LazyLogging {
+class ResizeImageServlet extends javax.servlet.http.HttpServlet with com.typesafe.scalalogging.LazyLogging {
   private val pattern = """^/(\d+)[xX](\d+)$""".r
 
   override def doPost(request:javax.servlet.http.HttpServletRequest, response:HttpServletResponse):Unit = {

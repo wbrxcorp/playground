@@ -2,7 +2,7 @@ package modules
 
 import com.typesafe.config.ConfigFactory
 
-package object config extends com.typesafe.scalalogging.slf4j.LazyLogging {
+package object config extends com.typesafe.scalalogging.LazyLogging {
   def projectName:String = buildinfo.BuildInfo.name
 
   val defaultConfigs = Map("default"->DefaultDefaultConfig, "standalone"->DefaultStandaloneConfig)
