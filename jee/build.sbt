@@ -84,8 +84,10 @@ libraryDependencies ++= Seq(
 ).map("io.apigee.trireme" % _ % "0.8.9")
 
 libraryDependencies += "com.novocode" % "junit-interface" % "0.11" % Test // http://mvnrepository.com/artifact/com.novocode/junit-interface
-libraryDependencies += "org.scalatest" % "scalatest_2.12" % "3.0.3" % Test // http://mvnrepository.com/artifact/org.scalatest/scalatest_2.12
-libraryDependencies += "org.scalatra" % "scalatra-test_2.12" % "2.5.0" % Test // http://mvnrepository.com/artifact/org.skinny-framework/scalatra-test_2.12
+libraryDependencies += "org.scalatest" % "scalatest_2.12" % "3.0.0" % Test // http://mvnrepository.com/artifact/org.scalatest/scalatest_2.12
+libraryDependencies ++= Seq(
+  "scalatra-test_2.12", "scalatra-scalatest_2.12"
+).map("org.scalatra" % _ % "2.5.0") // http://mvnrepository.com/artifact/org.scalatra/scalatra-scalatest_2.12
 
 libraryDependencies ++= Seq(
   "selenium-support", // http://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-support
