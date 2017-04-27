@@ -12,13 +12,8 @@ buildProperties := {
 }
 
 name := Option(buildProperties.value.getProperty("name")).getOrElse("playground")
-<<<<<<< HEAD
 scalaVersion := Option(buildProperties.value.getProperty("scalaVersion")).getOrElse("2.12.2")
 version := Option(buildProperties.value.getProperty("version")).getOrElse("0.20170427")
-=======
-scalaVersion := Option(buildProperties.value.getProperty("scalaVersion")).getOrElse("2.12.1")
-version := Option(buildProperties.value.getProperty("version")).getOrElse("0.20161121")
->>>>>>> 3573b65957b3bde9d6cbe5a2945e7227dbe3473d
 scalacOptions ++= Seq("-feature", "-deprecation")
 mainClass in (Compile, run) := Some("WebAndSQLMain")
 javaSource in Compile := scala.util.Try(java.lang.Runtime.getRuntime.exec("javac").waitFor).map(x=>baseDirectory.value / "src" / "main" / "java").getOrElse(file("DOES/NOT/EXIST"))
