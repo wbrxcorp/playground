@@ -87,7 +87,7 @@ libraryDependencies += "com.novocode" % "junit-interface" % "0.11" % Test // htt
 libraryDependencies += "org.scalatest" % "scalatest_2.12" % "3.0.0" % Test // http://mvnrepository.com/artifact/org.scalatest/scalatest_2.12
 libraryDependencies ++= Seq(
   "scalatra-test_2.12", "scalatra-scalatest_2.12"
-).map("org.scalatra" % _ % "2.5.0") // http://mvnrepository.com/artifact/org.scalatra/scalatra-scalatest_2.12
+).map("org.scalatra" % _ % "2.5.0" % Test) // http://mvnrepository.com/artifact/org.scalatra/scalatra-scalatest_2.12
 
 libraryDependencies ++= Seq(
   "selenium-support", // http://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-support
