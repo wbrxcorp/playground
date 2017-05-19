@@ -31,7 +31,7 @@ trait E2ETest extends org.scalatest.FlatSpec with org.scalatest.selenium.WebBrow
     modules.config.loadConfig("standalone")
 
     // Webサーバの起動
-    val (server, port) = modules.jetty.startServer
+    val (server, port) = modules.jetty.startServer(Some(0))
     this.server = server
     this.port = port
 

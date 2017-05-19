@@ -1,6 +1,6 @@
 package modules
 
-import org.eclipse.jetty.server.Server
+import org.eclipse.jetty.server.{Server, ServerConnector}
 
 package object jetty {
   def startWebApp(port:Int, resources:Array[String]):Server = {
@@ -24,10 +24,12 @@ package object jetty {
 
   def startWebApp(port:Int, resource:String):Server = startWebApp(port, Array(resource))
 
-  def startServer:(Server, Int) = {
+  def startServer(port:Option[Int] = None):(Server, Int) = {
     val config = modules.config.get
-    val port = config.webAppPort
-    (startWebApp(port, config.webAppDirs), port)
+    val server = startWebApp(port.getOrElse(config.webAppPort), config.webAppDirs)
+    (server, server.getConnectors()(0).asInstanceOf[ServerConnector].getLocalPort())
   }
+
+  def startServer:(Server, Int) = startServer(None)
 
 }
