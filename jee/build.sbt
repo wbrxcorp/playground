@@ -29,7 +29,7 @@ resolvers += "alfresco-public" at "https://artifacts.alfresco.com/nexus/content/
 
 libraryDependencies += "org.scala-lang" % "scala-compiler" % "2.12.2" // http://mvnrepository.com/artifact/org.scala-lang/scala-compiler
 libraryDependencies += "org.apache.httpcomponents" % "httpclient" % "4.5.3" // http://mvnrepository.com/artifact/org.apache.httpcomponents/httpclient
-libraryDependencies += "org.flywaydb" % "flyway-core" % "4.1.2" // http://mvnrepository.com/artifact/org.flywaydb/flyway-core
+libraryDependencies += "org.flywaydb" % "flyway-core" % "4.2.0" // http://mvnrepository.com/artifact/org.flywaydb/flyway-core
 libraryDependencies += "commons-io" % "commons-io" % "2.5" // http://mvnrepository.com/artifact/commons-io/commons-io
 libraryDependencies += "joda-time" % "joda-time" % "2.9.9"  // http://mvnrepository.com/artifact/joda-time/joda-time
 libraryDependencies += "ch.qos.logback" % "logback-classic" % "1.2.3" // http://mvnrepository.com/artifact/ch.qos.logback/logback-classic
@@ -39,19 +39,19 @@ libraryDependencies += "org.jsoup" % "jsoup" % "1.10.2"  // http://mvnrepository
 libraryDependencies += "com.mashape.unirest" % "unirest-java" % "1.4.9" // http://mvnrepository.com/artifact/com.mashape.unirest/unirest-java
 libraryDependencies += "com.opencsv" % "opencsv" % "3.8" // http://mvnrepository.com/artifact/com.opencsv/opencsv
 libraryDependencies += "org.apache.velocity" % "velocity" % "1.7"  // http://mvnrepository.com/artifact/org.apache.velocity/velocity
-libraryDependencies += "com.hubspot.jinjava" % "jinjava" % "2.1.19" // https://mvnrepository.com/artifact/com.hubspot.jinjava/jinjava
+libraryDependencies += "com.hubspot.jinjava" % "jinjava" % "2.2.0" // https://mvnrepository.com/artifact/com.hubspot.jinjava/jinjava
 libraryDependencies += "org.pegdown" % "pegdown" % "1.6.0" // http://mvnrepository.com/artifact/org.pegdown/pegdown
-libraryDependencies += "com.vladsch.flexmark" % "flexmark-all" % "0.19.0" // https://mvnrepository.com/artifact/com.vladsch.flexmark/flexmark-java
+libraryDependencies += "com.vladsch.flexmark" % "flexmark-all" % "0.19.5" // https://mvnrepository.com/artifact/com.vladsch.flexmark/flexmark-java
 libraryDependencies += "org.eclipse.jgit" % "org.eclipse.jgit" % "4.7.0.201704051617-r" // http://mvnrepository.com/artifact/org.eclipse.jgit/org.eclipse.jgit
 libraryDependencies += "com.yahoo.platform.yui" % "yuicompressor" % "2.4.8-rhino-alfresco-patched" // http://mvnrepository.com/artifact/com.yahoo.platform.yui/yuicompressor
 libraryDependencies += "com.jakewharton.fliptables" % "fliptables" % "1.0.2" // https://mvnrepository.com/artifact/com.jakewharton.fliptables/fliptables
 libraryDependencies += "com.typesafe" % "config" % "1.3.1" // http://mvnrepository.com/artifact/com.typesafe/config
 libraryDependencies += "org.develnext.jphp" % "jphp-core" % "0.8.0" // https://github.com/jphp-compiler/jphp
-libraryDependencies += "com.lihaoyi" % "pprint_2.12" % "0.4.4" // http://mvnrepository.com/artifact/com.lihaoyi/pprint_2.12
+libraryDependencies += "com.lihaoyi" % "pprint_2.12" % "0.5.0" // http://mvnrepository.com/artifact/com.lihaoyi/pprint_2.12
 libraryDependencies += "com.m3" % "curly" % "0.5.6" // https://mvnrepository.com/artifact/com.m3/curly
-libraryDependencies += "com.github.nscala-time" % "nscala-time_2.12" % "2.16.0" // http://mvnrepository.com/artifact/com.github.nscala-time/nscala-time_2.11
+libraryDependencies += "com.github.nscala-time" % "nscala-time_2.12" % "2.16.0" // http://mvnrepository.com/artifact/com.github.nscala-time/nscala-time_2.12
 libraryDependencies += "net.lightbody.bmp" % "browsermob-core" % "2.1.4" // http://mvnrepository.com/artifact/net.lightbody.bmp/browsermob-core
-libraryDependencies += "com.github.pathikrit" % "better-files_2.12" % "3.0.0" // http://mvnrepository.com/artifact/com.github.pathikrit/better-files_2.11
+libraryDependencies += "com.github.pathikrit" % "better-files_2.12" % "3.0.0" // http://mvnrepository.com/artifact/com.github.pathikrit/better-files_2.12
 
 // JDBC drivers
 libraryDependencies += "com.h2database" % "h2" % "1.4.195" // http://mvnrepository.com/artifact/com.h2database/h2
@@ -62,7 +62,7 @@ libraryDependencies += "org.postgresql" % "postgresql" % "9.4.1212.jre7"
 
 libraryDependencies ++= Seq(
   "scalikejdbc_2.12","scalikejdbc-syntax-support-macro_2.12" // http://mvnrepository.com/artifact/org.scalikejdbc/scalikejdbc_2.12
-).map("org.scalikejdbc" % _ % "2.5.1")
+).map("org.scalikejdbc" % _ % "2.5.2")
 
 libraryDependencies ++= Seq(
   "scalatra_2.12", "scalatra-json_2.12"
@@ -70,7 +70,7 @@ libraryDependencies ++= Seq(
 
 libraryDependencies ++= Seq(
   "json4s-jackson_2.12", "json4s-ext_2.12"
-).map("org.json4s" % _ % "3.5.1") // http://mvnrepository.com/artifact/org.json4s/json4s-jackson_2.12
+).map("org.json4s" % _ % "3.5.2") // http://mvnrepository.com/artifact/org.json4s/json4s-jackson_2.12
 
 libraryDependencies ++= Seq(
   "poi", "poi-ooxml"
@@ -78,7 +78,7 @@ libraryDependencies ++= Seq(
 
 libraryDependencies ++= Seq(
   "jetty-webapp","jetty-plus","jetty-annotations","jetty-servlets"
-).map("org.eclipse.jetty" % _ % "9.3.18.v20170406") // http://mvnrepository.com/artifact/org.eclipse.jetty/jetty-webapp
+).map("org.eclipse.jetty" % _ % "9.3.19.v20170502") // http://mvnrepository.com/artifact/org.eclipse.jetty/jetty-webapp
 
 libraryDependencies ++= Seq(
   "trireme-core", // https://mvnrepository.com/artifact/io.apigee.trireme/trireme-core
