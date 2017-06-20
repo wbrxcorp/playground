@@ -1,6 +1,6 @@
 enablePlugins(BuildInfoPlugin)
 //enablePlugins(JettyPlugin)
-org.ensime.EnsimeCoursierKeys.ensimeServerVersion in ThisBuild := "2.0.0-M1"
+org.ensime.EnsimeCoursierKeys.ensimeServerVersion in ThisBuild := "2.0.0-M2"
 
 // http://stackoverflow.com/questions/25665848/how-to-load-setting-values-from-a-java-properties-file
 val buildProperties = settingKey[java.util.Properties]("The build properties")
@@ -13,7 +13,7 @@ buildProperties := {
 
 name := Option(buildProperties.value.getProperty("name")).getOrElse("playground")
 scalaVersion := Option(buildProperties.value.getProperty("scalaVersion")).getOrElse("2.12.2")
-version := Option(buildProperties.value.getProperty("version")).getOrElse("0.20170427")
+version := Option(buildProperties.value.getProperty("version")).getOrElse("0.20170620")
 scalacOptions ++= Seq("-feature", "-deprecation")
 mainClass in (Compile, run) := Some("WebAndSQLMain")
 javaSource in Compile := scala.util.Try(java.lang.Runtime.getRuntime.exec("javac").waitFor).map(x=>baseDirectory.value / "src" / "main" / "java").getOrElse(file("DOES/NOT/EXIST"))
@@ -41,7 +41,7 @@ libraryDependencies += "com.opencsv" % "opencsv" % "3.8" // http://mvnrepository
 libraryDependencies += "org.apache.velocity" % "velocity" % "1.7"  // http://mvnrepository.com/artifact/org.apache.velocity/velocity
 libraryDependencies += "com.hubspot.jinjava" % "jinjava" % "2.2.0" // https://mvnrepository.com/artifact/com.hubspot.jinjava/jinjava
 libraryDependencies += "org.pegdown" % "pegdown" % "1.6.0" // http://mvnrepository.com/artifact/org.pegdown/pegdown
-libraryDependencies += "com.vladsch.flexmark" % "flexmark-all" % "0.19.5" // https://mvnrepository.com/artifact/com.vladsch.flexmark/flexmark-java
+libraryDependencies += "com.vladsch.flexmark" % "flexmark-all" % "0.19.8" // https://mvnrepository.com/artifact/com.vladsch.flexmark/flexmark-java
 libraryDependencies += "org.eclipse.jgit" % "org.eclipse.jgit" % "4.7.0.201704051617-r" // http://mvnrepository.com/artifact/org.eclipse.jgit/org.eclipse.jgit
 libraryDependencies += "com.yahoo.platform.yui" % "yuicompressor" % "2.4.8-rhino-alfresco-patched" // http://mvnrepository.com/artifact/com.yahoo.platform.yui/yuicompressor
 libraryDependencies += "com.jakewharton.fliptables" % "fliptables" % "1.0.2" // https://mvnrepository.com/artifact/com.jakewharton.fliptables/fliptables
