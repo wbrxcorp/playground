@@ -16,7 +16,7 @@ scalaVersion := Option(buildProperties.value.getProperty("scalaVersion")).getOrE
 version := Option(buildProperties.value.getProperty("version")).getOrElse("0.20170620")
 scalacOptions ++= Seq("-feature", "-deprecation")
 mainClass in (Compile, run) := Some("WebAndSQLMain")
-javaSource in Compile := scala.util.Try(java.lang.Runtime.getRuntime.exec("javac").waitFor).map(x=>baseDirectory.value / "src" / "main" / "java").getOrElse(file("DOES/NOT/EXIST"))
+javaSource in Compile := scala.util.Try(java.lang.Runtime.getRuntime.exec("javac -version").waitFor).filter(_ == 0).map(x=>baseDirectory.value / "src" / "main" / "java").getOrElse(file("DOES/NOT/EXIST"))
 
 //unmanagedSourceDirectories in Compile <<= (scalaSource in Compile)( _ :: Nil) // java sources are for test only
 //}
