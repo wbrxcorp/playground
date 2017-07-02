@@ -1,6 +1,6 @@
 enablePlugins(BuildInfoPlugin)
 //enablePlugins(JettyPlugin)
-org.ensime.EnsimeCoursierKeys.ensimeServerVersion in ThisBuild := "2.0.0-M2"
+//org.ensime.EnsimeCoursierKeys.ensimeServerVersion in ThisBuild := "2.0.0-M3"
 
 // http://stackoverflow.com/questions/25665848/how-to-load-setting-values-from-a-java-properties-file
 val buildProperties = settingKey[java.util.Properties]("The build properties")
