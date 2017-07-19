@@ -6,6 +6,7 @@ import io.netty.handler.codec.http.{HttpRequest, HttpResponse}
 
 trait E2ETest extends org.scalatest.FlatSpec with org.scalatest.selenium.WebBrowser with org.scalatest.BeforeAndAfterAll with RequestFilter with ResponseFilter{
   import org.openqa.selenium.remote.{DesiredCapabilities,CapabilityType}
+  import org.openqa.selenium.chrome.ChromeOptions
   import net.lightbody.bmp.BrowserMobProxyServer
 
   implicit var webDriver: org.openqa.selenium.remote.RemoteWebDriver = _
@@ -42,7 +43,12 @@ trait E2ETest extends org.scalatest.FlatSpec with org.scalatest.selenium.WebBrow
     this.setupProxy(this.proxy)
 
     proxy.start(0)
-    val capabilities = new DesiredCapabilities
+    val capabilities = DesiredCapabilities.chrome
+    val chromeOptions = new ChromeOptions
+    //chromeOptions.addArguments("headless")
+    chromeOptions.addArguments("disable-gpu")
+    chromeOptions.addArguments("no-sandbox")
+    capabilities.setCapability(ChromeOptions.CAPABILITY, chromeOptions)
     capabilities.setCapability(CapabilityType.PROXY, net.lightbody.bmp.client.ClientUtil.createSeleniumProxy(this.proxy));
 
     // WebDriverのセットアップ
@@ -54,7 +60,10 @@ trait E2ETest extends org.scalatest.FlatSpec with org.scalatest.selenium.WebBrow
     if (new java.io.File(driverPath).isFile) {
       System.setProperty("webdriver.chrome.driver", driverPath)
     }
-    this.webDriver = new org.openqa.selenium.chrome.ChromeDriver(capabilities)
+    this.webDriver = Option(System.getProperty("selenium.server.remote.url")) match {
+      case Some(url) => new org.openqa.selenium.remote.RemoteWebDriver(new java.net.URL(url), capabilities)
+      case None => new org.openqa.selenium.chrome.ChromeDriver(capabilities)
+    }
   }
 
   override def afterAll() = {
