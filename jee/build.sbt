@@ -12,8 +12,8 @@ buildProperties := {
 }
 
 name := Option(buildProperties.value.getProperty("name")).getOrElse("playground")
-scalaVersion := Option(buildProperties.value.getProperty("scalaVersion")).getOrElse("2.12.2")
-version := Option(buildProperties.value.getProperty("version")).getOrElse("0.20170620")
+scalaVersion := Option(buildProperties.value.getProperty("scalaVersion")).getOrElse("2.12.3")
+version := Option(buildProperties.value.getProperty("version")).getOrElse("0.20171007")
 scalacOptions ++= Seq("-feature", "-deprecation")
 mainClass in (Compile, run) := Some("WebAndSQLMain")
 javaSource in Compile := scala.util.Try(java.lang.Runtime.getRuntime.exec("javac -version").waitFor).filter(_ == 0).map(x=>baseDirectory.value / "src" / "main" / "java").getOrElse(file("DOES/NOT/EXIST"))
@@ -27,7 +27,7 @@ resolvers += "clojars" at "http://clojars.org/repo/"
 resolvers += "atlassian-3rd-party" at "https://maven.atlassian.com/3rdparty/"
 resolvers += "alfresco-public" at "https://artifacts.alfresco.com/nexus/content/repositories/public"
 
-libraryDependencies += "org.scala-lang" % "scala-compiler" % "2.12.2" // http://mvnrepository.com/artifact/org.scala-lang/scala-compiler
+libraryDependencies += "org.scala-lang" % "scala-compiler" % "2.12.3" // http://mvnrepository.com/artifact/org.scala-lang/scala-compiler
 libraryDependencies += "org.apache.httpcomponents" % "httpclient" % "4.5.3" // http://mvnrepository.com/artifact/org.apache.httpcomponents/httpclient
 libraryDependencies += "org.flywaydb" % "flyway-core" % "4.2.0" // http://mvnrepository.com/artifact/org.flywaydb/flyway-core
 libraryDependencies += "commons-io" % "commons-io" % "2.5" // http://mvnrepository.com/artifact/commons-io/commons-io
@@ -66,11 +66,11 @@ libraryDependencies ++= Seq(
 
 libraryDependencies ++= Seq(
   "scalatra_2.12", "scalatra-json_2.12"
-).map("org.scalatra" % _ % "2.5.0") // http://mvnrepository.com/artifact/org.scalatra/scalatra_2.12
+).map("org.scalatra" % _ % "2.5.1") // http://mvnrepository.com/artifact/org.scalatra/scalatra_2.12
 
 libraryDependencies ++= Seq(
   "json4s-jackson_2.12", "json4s-ext_2.12"
-).map("org.json4s" % _ % "3.5.2") // http://mvnrepository.com/artifact/org.json4s/json4s-jackson_2.12
+).map("org.json4s" % _ % "3.5.3") // http://mvnrepository.com/artifact/org.json4s/json4s-jackson_2.12
 
 libraryDependencies ++= Seq(
   "poi", "poi-ooxml"
@@ -94,7 +94,7 @@ libraryDependencies ++= Seq(
 libraryDependencies ++= Seq(
   "selenium-support", // http://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-support
   "selenium-chrome-driver"  // http://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-chrome-driver
-).map("org.seleniumhq.selenium" % _ % "3.4.0" % Test)
+).map("org.seleniumhq.selenium" % _ % "3.6.0" % Test)
 
 val e2etest = taskKey[Unit]("Execute e2e.[projectname].* tests")
 e2etest := (Def.taskDyn {
