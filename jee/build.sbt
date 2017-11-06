@@ -24,7 +24,7 @@ parallelExecution in Test := false
 
 resolvers += "jitpack" at "https://jitpack.io"
 resolvers += "clojars" at "http://clojars.org/repo/"
-resolvers += "atlassian-3rd-party" at "https://maven.atlassian.com/3rdparty/"
+resolvers += "atlassian-3rd-party" at "https://packages.atlassian.com/maven-3rdparty/"
 resolvers += "alfresco-public" at "https://artifacts.alfresco.com/nexus/content/repositories/public"
 
 libraryDependencies += "org.scala-lang" % "scala-compiler" % "2.12.3" // http://mvnrepository.com/artifact/org.scala-lang/scala-compiler
