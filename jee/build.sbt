@@ -50,7 +50,7 @@ libraryDependencies += "org.develnext.jphp" % "jphp-core" % "0.8.0" // https://g
 libraryDependencies += "com.lihaoyi" % "pprint_2.12" % "0.5.0" // http://mvnrepository.com/artifact/com.lihaoyi/pprint_2.12
 libraryDependencies += "com.m3" % "curly" % "0.5.6" // https://mvnrepository.com/artifact/com.m3/curly
 libraryDependencies += "com.github.nscala-time" % "nscala-time_2.12" % "2.16.0" // http://mvnrepository.com/artifact/com.github.nscala-time/nscala-time_2.12
-libraryDependencies += "net.lightbody.bmp" % "browsermob-core" % "2.1.4" // http://mvnrepository.com/artifact/net.lightbody.bmp/browsermob-core
+libraryDependencies += "net.lightbody.bmp" % "browsermob-core" % "2.1.5" // http://mvnrepository.com/artifact/net.lightbody.bmp/browsermob-core
 libraryDependencies += "com.github.pathikrit" % "better-files_2.12" % "3.0.0" // http://mvnrepository.com/artifact/com.github.pathikrit/better-files_2.12
 
 // JDBC drivers
