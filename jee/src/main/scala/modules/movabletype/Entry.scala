@@ -11,5 +11,5 @@ case class Entry (
   text:Option[String]=None,
   textMore:Option[String]=None,
   title:Option[String]=None,
-  unpublishedOn:Option[org.joda.time.LocalDateTime]=None
+  unpublishedOn:Option[java.time.LocalDateTime]=None
 )
