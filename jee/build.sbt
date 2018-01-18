@@ -12,7 +12,7 @@ buildProperties := {
 }
 
 name := Option(buildProperties.value.getProperty("name")).getOrElse("playground")
-scalaVersion := Option(buildProperties.value.getProperty("scalaVersion")).getOrElse("2.12.4")
+scalaVersion in ThisBuild := Option(buildProperties.value.getProperty("scalaVersion")).getOrElse("2.12.4")
 version := Option(buildProperties.value.getProperty("version")).getOrElse("0.20180117")
 scalacOptions ++= Seq("-feature", "-deprecation")
 mainClass in (Compile, run) := Some("WebAndSQLMain")
