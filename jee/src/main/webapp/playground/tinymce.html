@@ -8,6 +8,22 @@
   <script>
     angular.module("TinyMCE", ["ui.tinymce"])
     .run(["$rootScope",  function($scope) {
+      $scope.tinymceOptions = {
+        language_url: './js/tinymce-ja.js',
+        //language: "ja",
+        plugins: "image",
+        toolbar: "image header",
+        file_picker_types: 'file image media',
+        images_upload_url: 'postAcceptor.php',
+        setup: function(editor) {
+          editor.addButton("header", {
+            text: "見出し",
+            onClick: function() {
+              editor.execCommand("FormatBlock", false, "h2");
+            }
+          });
+        }
+      }
     }]);
     angular.element(document).ready(function() {
       angular.bootstrap(document, ['TinyMCE']);
@@ -16,7 +32,7 @@
 </head>
 <body>
   <div class="container">
-    <textarea ui-tinymce ng-model="tinymceModel"></textarea>
+    <textarea ui-tinymce="tinymceOptions" ng-model="tinymceModel"></textarea>
   </div>
 </body>
 </html>
